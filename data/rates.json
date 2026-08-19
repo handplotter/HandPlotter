@@ -1,0 +1,127 @@
+{
+  "base": 20,
+  "sizeMult": {
+    "a6": 0.45,
+    "a5": 0.6,
+    "a4": 1,
+    "long": 1.15,
+    "a3": 2
+  },
+  "densityMult": {
+    "light": 0.6,
+    "standard": 1,
+    "full": 1.5,
+    "max": 2
+  },
+  "diagramFee": {
+    "simple": 6,
+    "moderate": 15,
+    "complex": 20
+  },
+  "volumePct": {
+    "v20": 0.15,
+    "v10": 0.1,
+    "v5": 0.05
+  },
+  "turnaroundMult": {
+    "regular": 1,
+    "semi-rush": 1.5,
+    "rush": 2.5
+  },
+  "turnaroundCap": {
+    "regular": null,
+    "semi-rush": 10,
+    "rush": 5
+  },
+  "minOrder": 50,
+  "firstOrderDiscount": 0.1,
+  "downPaymentPct": 0.5,
+  "__catalog": {
+    "sizes": [
+      {
+        "id": "a6",
+        "label": "A6 / card stock"
+      },
+      {
+        "id": "a5",
+        "label": "A5"
+      },
+      {
+        "id": "a4",
+        "label": "A4 (standard)"
+      },
+      {
+        "id": "long",
+        "label": "Long bond (8.5×13)"
+      },
+      {
+        "id": "a3",
+        "label": "A3"
+      }
+    ],
+    "densities": [
+      {
+        "id": "light",
+        "label": "Light (≤ 75 words/pg)"
+      },
+      {
+        "id": "standard",
+        "label": "Standard (76–200 words/pg)"
+      },
+      {
+        "id": "full",
+        "label": "Full (201–400 words/pg)"
+      },
+      {
+        "id": "max",
+        "label": "Max (400+ words/pg)"
+      }
+    ],
+    "diagramTiers": [
+      {
+        "id": "simple",
+        "label": "Simple (box / arrow / basic chart)"
+      },
+      {
+        "id": "moderate",
+        "label": "Moderate (table / labeled figure)"
+      },
+      {
+        "id": "complex",
+        "label": "Complex (custom illustration)"
+      }
+    ],
+    "turnarounds": [
+      {
+        "id": "regular",
+        "label": "Regular (2 business days)"
+      },
+      {
+        "id": "semi-rush",
+        "label": "Semi-rush (next business day)"
+      },
+      {
+        "id": "rush",
+        "label": "Rush (same day)"
+      }
+    ],
+    "volumeTiers": [
+      {
+        "id": "v20",
+        "min": 20,
+        "label": "20+ pages"
+      },
+      {
+        "id": "v10",
+        "min": 10,
+        "label": "10–19 pages"
+      },
+      {
+        "id": "v5",
+        "min": 5,
+        "label": "5–9 pages"
+      }
+    ]
+  },
+  "generatedAt": "2026-08-19T02:37:19.069Z"
+}

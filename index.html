@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HandPlotter -- real handwriting, plotted for you</title>
+<meta name="description" content="Get your text, certificates, or invitations plotted in real handwritten ink. Get an instant estimate and message us on Facebook to book.">
+<link rel="icon" href="assets/icon.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <img class="wordmark" src="assets/wordmark.png" alt="HandPlotter">
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="hero">
+      <h1>Real pen-on-paper handwriting -- plotted, not printed.</h1>
+      <p class="lead">
+        Send us your text, a certificate, or an invitation list. A pen plotter
+        writes it out by hand, one stroke at a time, in a genuine handwriting
+        font -- not a printer font that looks handwritten.
+      </p>
+    </section>
+
+    <!--
+      Proof gallery: reads data/proof.json at load (app.js loadProofPhotos()).
+      Publish photos from Finance Manager's Website tab (Add a photo -- copies
+      the file into assets/proof/ and appends to data/proof.json), or edit
+      that JSON by hand and drop images into assets/proof/ yourself. Empty by
+      default; do not send this link out while it says "coming soon" -- see
+      web/README.md's publish checklist.
+    -->
+    <section id="proof">
+      <div id="proof-gallery" class="proof-grid"></div>
+    </section>
+
+    <section id="offer">
+      <h2>What we plot</h2>
+      <div class="offer-grid">
+        <div class="offer-card">
+          <h3>Letters &amp; essays</h3>
+          <p>Typed text, laid out and handwritten across as many pages as you need.</p>
+        </div>
+        <div class="offer-card">
+          <h3>Certificates &amp; invitations</h3>
+          <p>One design, a list of names -- each piece plotted individually in real ink.</p>
+        </div>
+        <div class="offer-card">
+          <h3>Labeled diagrams</h3>
+          <p>Simple figures, tables, and math worked out by hand alongside your writing.</p>
+        </div>
+        <div class="offer-card">
+          <h3>Your own layout</h3>
+          <p>Message us your specifics -- if it can be composed on a page, we can plot it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="own-handwriting">
+      <h2>Want it in your own handwriting?</h2>
+      <p class="lead">
+        Send a photo of your handwriting and we build a custom font from it
+        first -- then everything we plot for you comes out looking like your
+        own hand, not ours.
+      </p>
+
+      <div class="card">
+        <h3>How to photograph your sample</h3>
+        <ol class="tips-list">
+          <li><strong>Even, bright lighting, no shadows or glare.</strong> Natural daylight near a window
+            works best -- avoid a single overhead lamp or flash, which throws a shadow across the page.</li>
+          <li><strong>In focus and sharp.</strong> A blurry photo is the single most common reason a
+            sample fails to process -- tap to focus on the page before shooting, and hold steady.</li>
+          <li><strong>Camera flat and parallel to the page</strong>, not at an angle -- keeps every
+            letter true to its real shape instead of stretched by perspective.</li>
+          <li><strong>Space your letters out and don't let strokes touch.</strong> Our software finds
+            each letter by looking for a clear gap around it -- crowded or joined-up (cursive-style)
+            writing can get merged into one shape or missed.</li>
+          <li><strong>Write at a normal size on a flat, unfolded page</strong>, with solid, consistent
+            pen pressure -- very faint or scratchy strokes can be lost against the paper.</li>
+          <li><strong>A fine, consistent-width pen</strong> (a fineliner or a fine ballpoint, not a thick
+            marker) traces most cleanly -- a thick or bleeding line blurs the exact edge of each letter.</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h3>See it for yourself</h3>
+        <div id="sample-gallery" class="sample-list"></div>
+      </div>
+
+      <p class="disclaimer">
+        Your custom font is a careful re-creation of your handwriting, not a
+        perfect trace of it -- and a small amount of natural variation is
+        added on purpose so plotted pages don't look robotically repeated.
+        Between that, your photo's lighting/angle/focus, and the physical pen
+        and paper used on the day, your plotted result will be close to your
+        handwriting but should not be expected to match your original sample
+        100%.
+      </p>
+    </section>
+
+    <section id="quote">
+      <h2>Get an instant estimate</h2>
+      <p class="sub" style="margin:0 0 14px">
+        Not sure about any of these? Pick your best guess -- nothing here is
+        final until we confirm together on Messenger.
+      </p>
+
+      <div class="card">
+        <div id="rates-banner" class="banner">Loading current rates&hellip;</div>
+
+        <div class="field">
+          <label for="f-pieces">How many pieces?</label>
+          <input type="number" id="f-pieces" min="1" step="1" value="1">
+          <span class="hint">One certificate, one letter, one page -- each counts as one piece.</span>
+        </div>
+
+        <div class="field">
+          <label for="f-size">Paper size</label>
+          <select id="f-size"></select>
+        </div>
+
+        <div class="field">
+          <label for="f-density">How much writing per piece?</label>
+          <select id="f-density"></select>
+        </div>
+
+        <div class="field">
+          <label for="f-turnaround">When do you need it?</label>
+          <select id="f-turnaround"></select>
+        </div>
+
+        <details class="more">
+          <summary>Includes a diagram, table, or illustration?</summary>
+          <div class="diag-grid">
+            <div class="field">
+              <label for="f-diag-simple">Simple</label>
+              <input type="number" id="f-diag-simple" min="0" step="1" value="0">
+            </div>
+            <div class="field">
+              <label for="f-diag-moderate">Moderate</label>
+              <input type="number" id="f-diag-moderate" min="0" step="1" value="0">
+            </div>
+            <div class="field">
+              <label for="f-diag-complex">Complex</label>
+              <input type="number" id="f-diag-complex" min="0" step="1" value="0">
+            </div>
+          </div>
+        </details>
+
+        <div class="field checkbox-row">
+          <input type="checkbox" id="f-first">
+          <label for="f-first">This is my first order</label>
+        </div>
+
+        <div class="estimate">
+          <div id="q-breakdown"></div>
+          <div class="q-total-row">
+            <span class="label">Estimated total</span>
+            <span class="amount" id="q-total">&ndash;</span>
+          </div>
+          <div class="q-down-row">Down payment on booking: <span id="q-down">&ndash;</span></div>
+          <div class="cap-note" id="q-cap-note"></div>
+          <p class="disclaimer">
+            This is an estimate, not a final price. The confirmed price and
+            delivery date are set when we review your order on Messenger.
+          </p>
+        </div>
+
+        <div class="actions">
+          <div id="messenger-config-warning">
+            Messenger link is not set up yet on this page -- the site owner
+            needs to fill in MESSENGER_PAGE_USERNAME in assets/app.js.
+          </div>
+          <a id="book-btn" class="btn btn-primary" data-messenger-link target="_blank" rel="noopener">
+            Message us on Facebook to book
+          </a>
+          <div id="copy-status"></div>
+          <div id="copy-fallback">
+            <textarea id="copy-fallback-text" readonly onclick="this.select()"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    HandPlotter -- handwritten output from a real pen plotter. Prices shown
+    are estimates; every order is confirmed with the operator before work
+    begins.
+  </div>
+</footer>
+
+<script src="assets/pricing.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+/* HandPlotter quote page. Mobile-first: most visitors land here from a
+   Messenger/FB link on a phone. Every tappable control is sized against a
+   real thumb (min 44px), not against a mouse cursor -- this project has
+   shipped controls before that existed in the DOM but were too small to
+   actually use on a phone; this file is written against that lesson. */
+
+:root {
+  --ink: #1c2733;
+  --ink-soft: #4a5a6b;
+  --navy: #2f4a72;
+  --navy-dark: #223756;
+  --paper: #fbfaf7;
+  --panel: #ffffff;
+  --line: #e2e0d8;
+  --warn-bg: #fff6e5;
+  --warn-ink: #7a5b00;
+  --radius: 14px;
+  --maxw: 720px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #eef1f5;
+    --ink-soft: #b6c0cc;
+    --navy: #7ea1d6;
+    --navy-dark: #a9c2e8;
+    --paper: #14181f;
+    --panel: #1c222b;
+    --line: #2c333d;
+    --warn-bg: #33290a;
+    --warn-ink: #e8c375;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+}
+img { max-width: 100%; display: block; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 18px; }
+
+header.site {
+  /* Fixed light backing regardless of theme: the wordmark PNG is navy-on-
+     charcoal text with a transparent background, so it goes near-invisible
+     against a dark page. A dedicated dark-mode export would be the long-term
+     fix; a stable light masthead strip is the zero-asset one. */
+  padding: 18px 0;
+  background: #fbfaf7;
+  border-bottom: 1px solid #e2e0d8;
+}
+header.site .wrap { display: flex; align-items: center; gap: 10px; }
+header.site img.wordmark { height: 30px; width: auto; }
+
+main { padding: 28px 0 60px; }
+
+section { margin-bottom: 40px; }
+
+h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 10px; }
+h2 { font-size: 1.2rem; margin: 0 0 12px; }
+p.lead { color: var(--ink-soft); font-size: 1.02rem; margin: 0 0 20px; }
+p.sub { color: var(--ink-soft); font-size: 0.92rem; }
+
+.hero {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+
+.proof-placeholder {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 26px 18px;
+  text-align: center;
+  color: var(--ink-soft);
+  background: var(--panel);
+}
+.proof-placeholder strong { color: var(--ink); }
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.proof-item {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.proof-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--line); }
+.proof-item .proof-caption { padding: 8px 10px; font-size: 0.82rem; color: var(--ink-soft); }
+
+.tips-list { margin: 0; padding-left: 22px; }
+.tips-list li { margin-bottom: 10px; font-size: 0.92rem; color: var(--ink-soft); line-height: 1.5; }
+.tips-list li:last-child { margin-bottom: 0; }
+.tips-list strong { color: var(--ink); }
+
+.sample-list { display: flex; flex-direction: column; gap: 18px; }
+.sample-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+@media (max-width: 480px) { .sample-pair { grid-template-columns: 1fr; } }
+.sample-pair figure { margin: 0; }
+.sample-pair img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; display: block; background: var(--line); }
+.sample-pair figcaption { font-size: 0.78rem; color: var(--ink-soft); text-align: center; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+.sample-pair .sample-note { grid-column: 1 / -1; font-size: 0.88rem; color: var(--ink-soft); margin-top: 2px; }
+
+#own-handwriting .disclaimer {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 4px;
+}
+
+.offer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 560px) { .offer-grid { grid-template-columns: 1fr 1fr; } }
+.offer-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.offer-card h3 { margin: 0 0 6px; font-size: 1.02rem; }
+.offer-card p { margin: 0; color: var(--ink-soft); font-size: 0.92rem; }
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.banner {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+.banner.warn { background: var(--warn-bg); color: var(--warn-ink); border-color: transparent; }
+
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-bottom: 6px;
+}
+.field .hint { display: block; font-weight: 400; color: var(--ink-soft); font-size: 0.82rem; margin-top: 4px; }
+
+select, input[type="number"] {
+  width: 100%;
+  font-size: 1rem;
+  padding: 12px 12px;
+  min-height: 46px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  appearance: none;
+}
+select { background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%), linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%); background-position: calc(100% - 20px) center, calc(100% - 14px) center; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; padding-right: 34px; }
+
+.diag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.diag-grid .field { margin-bottom: 0; }
+.diag-grid label { font-size: 0.82rem; }
+
+.checkbox-row { display: flex; align-items: center; gap: 10px; }
+.checkbox-row input[type="checkbox"] { width: 22px; height: 22px; flex: none; }
+.checkbox-row label { font-weight: 500; font-size: 0.95rem; margin: 0; }
+
+details.more { margin-bottom: 16px; }
+details.more summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 8px 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.estimate {
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+  padding-top: 16px;
+}
+.q-row { display: flex; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: var(--ink-soft); padding: 3px 0; }
+.q-total-row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; }
+.q-total-row .label { font-size: 0.95rem; color: var(--ink-soft); }
+.q-total-row .amount { font-size: 1.7rem; font-weight: 700; color: var(--navy); }
+.q-down-row { font-size: 0.85rem; color: var(--ink-soft); margin-top: 2px; }
+.cap-note { font-size: 0.82rem; color: var(--warn-ink); background: var(--warn-bg); border-radius: 8px; padding: 8px 10px; margin-top: 10px; display: none; }
+.disclaimer { font-size: 0.78rem; color: var(--ink-soft); margin-top: 10px; }
+
+.actions { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary { background: var(--navy); color: #fff; }
+.btn-primary:hover { background: var(--navy-dark); }
+.btn-primary[aria-disabled="true"] { background: var(--line); color: var(--ink-soft); cursor: not-allowed; }
+
+#copy-status { font-size: 0.85rem; color: var(--ink-soft); min-height: 1.2em; }
+#copy-fallback { display: none; margin-top: 8px; }
+#copy-fallback textarea { width: 100%; min-height: 130px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
+
+#messenger-config-warning {
+  display: none;
+  font-size: 0.85rem;
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 18px 0 40px;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
