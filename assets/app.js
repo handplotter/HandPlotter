@@ -19,27 +19,63 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
   let DISK = null      // parsed data/rates.json, or null (offline fallback)
   let META = { live: false, generatedAt: null }
 
-  function fillSelect(sel, list) {
-    sel.innerHTML = ''
+  // ---- Segmented pill selectors (replace native <select> for size/density/
+  // turnaround): the whole option set is visible at once, no menu to open,
+  // and every chip is a full 40px+ tap target. ----
+  function fillPillGroup(container, list, selectedId) {
+    container.innerHTML = ''
     list.forEach((item) => {
-      const opt = document.createElement('option')
-      opt.value = item.id
-      opt.textContent = item.label
-      sel.appendChild(opt)
+      const btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = 'pill' + (item.id === selectedId ? ' active' : '')
+      btn.dataset.id = item.id
+      btn.setAttribute('role', 'radio')
+      btn.setAttribute('aria-checked', item.id === selectedId ? 'true' : 'false')
+      btn.textContent = item.label
+      btn.addEventListener('click', () => {
+        container.querySelectorAll('.pill').forEach((p) => { p.classList.remove('active'); p.setAttribute('aria-checked', 'false') })
+        btn.classList.add('active')
+        btn.setAttribute('aria-checked', 'true')
+        renderEstimate()
+      })
+      container.appendChild(btn)
     })
+  }
+  function pillValue(container) {
+    const active = container && container.querySelector('.pill.active')
+    return active ? active.dataset.id : null
+  }
+
+  // ---- +/- steppers (piece count + the three diagram-tier counts): no
+  // on-screen keyboard needed, and the count is always visible, not typed
+  // into a number field a visitor could leave blank. ----
+  function wireStepper(el, opts) {
+    if (!el) return
+    const min = opts.min || 0
+    const valEl = el.querySelector(opts.valueSelector)
+    const minus = el.querySelector('.minus')
+    const plus = el.querySelector('.plus')
+    function set(v) {
+      v = Math.max(min, Math.min(999, Math.round(v) || 0))
+      el.dataset.value = String(v)
+      valEl.textContent = String(v)
+    }
+    set(Number(el.dataset.value) || min)
+    minus.addEventListener('click', () => { set(Number(el.dataset.value) - 1); renderEstimate() })
+    plus.addEventListener('click', () => { set(Number(el.dataset.value) + 1); renderEstimate() })
   }
 
   function readForm() {
     return {
-      sizeId: $('f-size').value,
-      densityId: $('f-density').value,
-      pages: Math.max(1, Math.round(Number($('f-pieces').value) || 1)),
-      turnaroundId: $('f-turnaround').value,
+      sizeId: pillValue($('f-size')),
+      densityId: pillValue($('f-density')),
+      pages: Math.max(1, Math.round(Number($('f-pieces').dataset.value) || 1)),
+      turnaroundId: pillValue($('f-turnaround')),
       firstOrder: $('f-first').checked,
       diagrams: {
-        simple: Number($('f-diag-simple').value) || 0,
-        moderate: Number($('f-diag-moderate').value) || 0,
-        complex: Number($('f-diag-complex').value) || 0,
+        simple: Number($('f-diag-simple').dataset.value) || 0,
+        moderate: Number($('f-diag-moderate').dataset.value) || 0,
+        complex: Number($('f-diag-complex').dataset.value) || 0,
       },
     }
   }
@@ -60,7 +96,15 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
 
   function renderEstimate() {
     const q = window.HandPlotterPricing.compute(readForm(), DISK)
-    $('q-total').textContent = peso(q.total)
+    const totalEl = $('q-total')
+    const newTotalText = peso(q.total)
+    const changed = totalEl.textContent !== newTotalText && totalEl.textContent !== '–'
+    totalEl.textContent = newTotalText
+    if (changed) {
+      totalEl.classList.remove('bump')
+      void totalEl.offsetWidth // restart the CSS animation
+      totalEl.classList.add('bump')
+    }
     $('q-down').textContent = peso(q.downPayment)
     $('q-breakdown').innerHTML = [
       ['Base (' + q.size.label + ', ' + q.density.label + ') × ' + q.pages, peso(q.pagesTotal)],
@@ -236,6 +280,39 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     }
   }
 
+  // Sticky header grows a shadow (and shrinks the wordmark slightly) once
+  // the page has scrolled -- a cheap, common "the page is alive" cue.
+  function initHeaderScroll() {
+    const header = $('site-header')
+    if (!header) return
+    const onScroll = () => {
+      if (window.scrollY > 8) header.classList.add('scrolled')
+      else header.classList.remove('scrolled')
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+  }
+
+  // Fade/slide each major section in as it enters the viewport. Falls back
+  // to showing everything immediately if IntersectionObserver is missing
+  // (very old browsers) -- content must never depend on JS running.
+  function initRevealObserver() {
+    const els = document.querySelectorAll('.reveal')
+    if (!('IntersectionObserver' in window) || !els.length) {
+      els.forEach((el) => el.classList.add('in-view'))
+      return
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view')
+          io.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' })
+    els.forEach((el) => io.observe(el))
+  }
+
   async function init() {
     const loaded = await window.HandPlotterPricing.loadRates()
     DISK = loaded.disk
@@ -243,16 +320,15 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     renderFreshnessBanner()
 
     const CAT = window.HandPlotterPricing.catalogFor(DISK)
-    fillSelect($('f-size'), CAT.sizes)
-    fillSelect($('f-density'), CAT.densities)
-    fillSelect($('f-turnaround'), CAT.turnarounds)
-    $('f-size').value = 'a4'
-    $('f-density').value = 'standard'
+    fillPillGroup($('f-size'), CAT.sizes, 'a4')
+    fillPillGroup($('f-density'), CAT.densities, 'standard')
+    fillPillGroup($('f-turnaround'), CAT.turnarounds, CAT.turnarounds[0].id)
 
-    ;['f-size', 'f-density', 'f-pieces', 'f-turnaround', 'f-first',
-      'f-diag-simple', 'f-diag-moderate', 'f-diag-complex'].forEach((id) => {
-      $(id).addEventListener('input', renderEstimate)
+    wireStepper($('f-pieces'), { min: 1, valueSelector: '.qty-val' })
+    ;['f-diag-simple', 'f-diag-moderate', 'f-diag-complex'].forEach((id) => {
+      wireStepper($(id), { min: 0, valueSelector: '.step-val' })
     })
+    $('f-first').addEventListener('change', renderEstimate)
 
     $('book-btn').addEventListener('click', (e) => {
       if (!messengerHref()) { e.preventDefault(); return }
@@ -263,6 +339,8 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     renderEstimate()
     loadProofPhotos()
     loadHandwritingSamples()
+    initHeaderScroll()
+    initRevealObserver()
   }
 
   document.addEventListener('DOMContentLoaded', init)

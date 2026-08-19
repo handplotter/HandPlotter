@@ -5,27 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HandPlotter -- real handwriting, plotted for you</title>
 <meta name="description" content="Get your text, certificates, or invitations plotted in real handwritten ink. Get an instant estimate and message us on Facebook to book.">
+<meta name="theme-color" content="#2f4a72">
 <link rel="icon" href="assets/icon.png">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
-<header class="site">
+<header class="site" id="site-header">
   <div class="wrap">
     <img class="wordmark" src="assets/wordmark.png" alt="HandPlotter">
+    <a class="header-cta" href="#quote">Get a quote</a>
   </div>
 </header>
 
 <main>
   <div class="wrap">
 
-    <section class="hero">
+    <section class="hero reveal">
+      <svg class="hero-squiggle" viewBox="0 0 300 90" fill="none" aria-hidden="true">
+        <path class="squiggle-path" d="M8,72 L78,72 C104,72 104,40 130,40 C156,40 156,72 182,72 C208,72 210,40 232,22 L258,6" stroke="#2f4a72" stroke-width="9" stroke-linecap="round"/>
+        <circle class="squiggle-dot" cx="262" cy="4" r="6.5" fill="#2f4a72"/>
+      </svg>
       <h1>Real pen-on-paper handwriting -- plotted, not printed.</h1>
       <p class="lead">
-        Send us your text, a certificate, or an invitation list. A pen plotter
-        writes it out by hand, one stroke at a time, in a genuine handwriting
-        font -- not a printer font that looks handwritten.
+        A pen plotter writes your text by hand, stroke by stroke, in a genuine
+        handwriting font -- not a printer font pretending to be one.
       </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#quote">Get an instant estimate</a>
+        <a class="btn btn-ghost" href="#own-handwriting">Use my own handwriting</a>
+      </div>
+    </section>
+
+    <section class="steps reveal">
+      <div class="step">
+        <div class="step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 17.5 15 6.5a2 2 0 0 1 3 3L7 20.5 3 21z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="step-label">Tell us what to write</div>
+        <p>Text, a certificate, a list of names -- whatever needs to be in ink.</p>
+      </div>
+      <div class="step-arrow" aria-hidden="true">&rarr;</div>
+      <div class="step">
+        <div class="step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="step-label">A real pen plots it</div>
+        <p>One stroke at a time, on real paper, in genuine handwriting.</p>
+      </div>
+      <div class="step-arrow" aria-hidden="true">&rarr;</div>
+      <div class="step">
+        <div class="step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v13H8l-4 4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="step-label">Message us to book</div>
+        <p>Confirm the price and pickup/delivery with us on Facebook.</p>
+      </div>
     </section>
 
     <!--
@@ -36,57 +71,63 @@
       default; do not send this link out while it says "coming soon" -- see
       web/README.md's publish checklist.
     -->
-    <section id="proof">
+    <section id="proof" class="reveal">
+      <h2>Real plotted output</h2>
       <div id="proof-gallery" class="proof-grid"></div>
     </section>
 
-    <section id="offer">
+    <section id="offer" class="reveal">
       <h2>What we plot</h2>
       <div class="offer-grid">
         <div class="offer-card">
+          <div class="offer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 17.5 15 6.5a2 2 0 0 1 3 3L7 20.5 3 21z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
           <h3>Letters &amp; essays</h3>
           <p>Typed text, laid out and handwritten across as many pages as you need.</p>
         </div>
         <div class="offer-card">
+          <div class="offer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 4 6v6c0 5 3.5 7.6 8 9 4.5-1.4 8-4 8-9V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12.2 11 14l4-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
           <h3>Certificates &amp; invitations</h3>
           <p>One design, a list of names -- each piece plotted individually in real ink.</p>
         </div>
-        <div class="offer-card">
+        <div class="offer-card offer-card-highlight">
+          <div class="offer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 20 10 4l4 10 3-6 3 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
           <h3>Labeled diagrams</h3>
           <p>Simple figures, tables, and math worked out by hand alongside your writing.</p>
+          <a class="offer-link" href="#quote">Add one to your quote &rarr;</a>
         </div>
         <div class="offer-card">
+          <div class="offer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 9.5h17M9.5 9.5v11" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
           <h3>Your own layout</h3>
           <p>Message us your specifics -- if it can be composed on a page, we can plot it.</p>
         </div>
       </div>
     </section>
 
-    <section id="own-handwriting">
+    <section id="own-handwriting" class="reveal">
       <h2>Want it in your own handwriting?</h2>
       <p class="lead">
-        Send a photo of your handwriting and we build a custom font from it
-        first -- then everything we plot for you comes out looking like your
-        own hand, not ours.
+        Send a photo of your handwriting and we build a custom font from it --
+        everything we plot for you then comes out looking like your own hand.
       </p>
 
       <div class="card">
-        <h3>How to photograph your sample</h3>
-        <ol class="tips-list">
-          <li><strong>Even, bright lighting, no shadows or glare.</strong> Natural daylight near a window
-            works best -- avoid a single overhead lamp or flash, which throws a shadow across the page.</li>
-          <li><strong>In focus and sharp.</strong> A blurry photo is the single most common reason a
-            sample fails to process -- tap to focus on the page before shooting, and hold steady.</li>
-          <li><strong>Camera flat and parallel to the page</strong>, not at an angle -- keeps every
-            letter true to its real shape instead of stretched by perspective.</li>
-          <li><strong>Space your letters out and don't let strokes touch.</strong> Our software finds
-            each letter by looking for a clear gap around it -- crowded or joined-up (cursive-style)
-            writing can get merged into one shape or missed.</li>
-          <li><strong>Write at a normal size on a flat, unfolded page</strong>, with solid, consistent
-            pen pressure -- very faint or scratchy strokes can be lost against the paper.</li>
-          <li><strong>A fine, consistent-width pen</strong> (a fineliner or a fine ballpoint, not a thick
-            marker) traces most cleanly -- a thick or bleeding line blurs the exact edge of each letter.</li>
-        </ol>
+        <h3>Photographing your sample</h3>
+        <ul class="tips-list">
+          <li><span class="tip-ico" aria-hidden="true">&#9728;</span><div><strong>Bright, even light.</strong> Natural daylight, no shadows or flash glare.</div></li>
+          <li><span class="tip-ico" aria-hidden="true">&#127909;</span><div><strong>Sharp focus.</strong> Blurry is the #1 reason a sample fails to process.</div></li>
+          <li><span class="tip-ico" aria-hidden="true">&#128207;</span><div><strong>Camera flat, straight above.</strong> An angled shot stretches the letters.</div></li>
+          <li><span class="tip-ico" aria-hidden="true">&#9997;&#65039;</span><div><strong>Space letters out.</strong> Keep strokes from touching -- avoid cursive.</div></li>
+          <li><span class="tip-ico" aria-hidden="true">&#128196;</span><div><strong>Normal size, flat page, solid pressure.</strong> Faint strokes can get lost.</div></li>
+          <li><span class="tip-ico" aria-hidden="true">&#128394;&#65039;</span><div><strong>A fine pen.</strong> Fineliner or fine ballpoint traces most cleanly.</div></li>
+        </ul>
       </div>
 
       <div class="card">
@@ -96,67 +137,87 @@
 
       <p class="disclaimer">
         Your custom font is a careful re-creation of your handwriting, not a
-        perfect trace of it -- and a small amount of natural variation is
-        added on purpose so plotted pages don't look robotically repeated.
-        Between that, your photo's lighting/angle/focus, and the physical pen
-        and paper used on the day, your plotted result will be close to your
-        handwriting but should not be expected to match your original sample
-        100%.
+        perfect trace -- small natural variation is added on purpose so pages
+        don't look robotically repeated. Expect it to be close to your hand,
+        not a 100% match.
       </p>
     </section>
 
-    <section id="quote">
+    <section id="quote" class="reveal">
       <h2>Get an instant estimate</h2>
       <p class="sub" style="margin:0 0 14px">
-        Not sure about any of these? Pick your best guess -- nothing here is
-        final until we confirm together on Messenger.
+        Not sure about any of these? Pick your best guess -- nothing is final
+        until we confirm together on Messenger.
       </p>
 
-      <div class="card">
+      <div class="card quote-card">
         <div id="rates-banner" class="banner">Loading current rates&hellip;</div>
 
         <div class="field">
-          <label for="f-pieces">How many pieces?</label>
-          <input type="number" id="f-pieces" min="1" step="1" value="1">
+          <label>How many pieces?</label>
+          <div class="qty-stepper" id="f-pieces" data-min="1" data-value="1">
+            <button type="button" class="step-btn minus" aria-label="Fewer pieces">&minus;</button>
+            <span class="qty-val">1</span>
+            <button type="button" class="step-btn plus" aria-label="More pieces">+</button>
+          </div>
           <span class="hint">One certificate, one letter, one page -- each counts as one piece.</span>
         </div>
 
         <div class="field">
-          <label for="f-size">Paper size</label>
-          <select id="f-size"></select>
+          <label>Paper size</label>
+          <div class="pill-group" id="f-size" role="radiogroup" aria-label="Paper size"></div>
         </div>
 
         <div class="field">
-          <label for="f-density">How much writing per piece?</label>
-          <select id="f-density"></select>
+          <label>How much writing per piece?</label>
+          <div class="pill-group" id="f-density" role="radiogroup" aria-label="Writing amount"></div>
         </div>
 
         <div class="field">
-          <label for="f-turnaround">When do you need it?</label>
-          <select id="f-turnaround"></select>
+          <label>When do you need it?</label>
+          <div class="pill-group" id="f-turnaround" role="radiogroup" aria-label="Turnaround"></div>
         </div>
 
-        <details class="more">
-          <summary>Includes a diagram, table, or illustration?</summary>
+        <div class="diag-section" id="diag-section">
+          <div class="diag-head">
+            <h3>Diagram, table, or illustration?</h3>
+            <span class="diag-badge">Easy to miss -- add it here</span>
+          </div>
+          <p class="hint" style="margin:0 0 12px">We hand-draw simple figures, tables, and math right alongside your writing.</p>
           <div class="diag-grid">
-            <div class="field">
-              <label for="f-diag-simple">Simple</label>
-              <input type="number" id="f-diag-simple" min="0" step="1" value="0">
+            <div class="stepper" id="f-diag-simple" data-value="0">
+              <div class="stepper-label">Simple<span class="stepper-sub">box / arrow / chart</span></div>
+              <div class="stepper-ctl">
+                <button type="button" class="step-btn minus" aria-label="Fewer simple diagrams">&minus;</button>
+                <span class="step-val">0</span>
+                <button type="button" class="step-btn plus" aria-label="More simple diagrams">+</button>
+              </div>
             </div>
-            <div class="field">
-              <label for="f-diag-moderate">Moderate</label>
-              <input type="number" id="f-diag-moderate" min="0" step="1" value="0">
+            <div class="stepper" id="f-diag-moderate" data-value="0">
+              <div class="stepper-label">Moderate<span class="stepper-sub">table / labeled figure</span></div>
+              <div class="stepper-ctl">
+                <button type="button" class="step-btn minus" aria-label="Fewer moderate diagrams">&minus;</button>
+                <span class="step-val">0</span>
+                <button type="button" class="step-btn plus" aria-label="More moderate diagrams">+</button>
+              </div>
             </div>
-            <div class="field">
-              <label for="f-diag-complex">Complex</label>
-              <input type="number" id="f-diag-complex" min="0" step="1" value="0">
+            <div class="stepper" id="f-diag-complex" data-value="0">
+              <div class="stepper-label">Complex<span class="stepper-sub">custom illustration</span></div>
+              <div class="stepper-ctl">
+                <button type="button" class="step-btn minus" aria-label="Fewer complex diagrams">&minus;</button>
+                <span class="step-val">0</span>
+                <button type="button" class="step-btn plus" aria-label="More complex diagrams">+</button>
+              </div>
             </div>
           </div>
-        </details>
+        </div>
 
-        <div class="field checkbox-row">
-          <input type="checkbox" id="f-first">
-          <label for="f-first">This is my first order</label>
+        <div class="field toggle-row">
+          <label class="toggle-switch">
+            <input type="checkbox" id="f-first">
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+          <label for="f-first" class="toggle-text">This is my first order</label>
         </div>
 
         <div class="estimate">
@@ -168,8 +229,7 @@
           <div class="q-down-row">Down payment on booking: <span id="q-down">&ndash;</span></div>
           <div class="cap-note" id="q-cap-note"></div>
           <p class="disclaimer">
-            This is an estimate, not a final price. The confirmed price and
-            delivery date are set when we review your order on Messenger.
+            An estimate, not a final price -- confirmed with you on Messenger.
           </p>
         </div>
 

@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "proof_1787162882824_11",
+    "file": "assets/proof/proof_1787162882824_11.jpg",
+    "caption": "\"Artworks\"",
+    "addedAt": "2026-08-19T18:08:02.828Z"
+  },
+  {
+    "id": "proof_1787162853652_9",
+    "file": "assets/proof/proof_1787162853652_9.jpg",
+    "caption": "\"Engineering diagrams\"",
+    "addedAt": "2026-08-19T18:07:33.656Z"
+  },
+  {
+    "id": "proof_1787162820791_7",
+    "file": "assets/proof/proof_1787162820791_7.jpg",
+    "caption": "\"Engineering Drawing Plates\"",
+    "addedAt": "2026-08-19T18:07:00.795Z"
+  },
+  {
+    "id": "proof_1787162726329_3",
+    "file": "assets/proof/proof_1787162726329_3.jpg",
+    "caption": "\"Special writings\"",
+    "addedAt": "2026-08-19T18:05:26.334Z"
+  },
+  {
+    "id": "proof_1787162704669_2",
+    "file": "assets/proof/proof_1787162704669_2.jpg",
+    "caption": "\"Problem Set\"",
+    "addedAt": "2026-08-19T18:05:04.674Z"
+  },
+  {
+    "id": "proof_1787162679653_1",
+    "file": "assets/proof/proof_1787162679653_1.jpg",
+    "caption": "\"Problem set\"",
+    "addedAt": "2026-08-19T18:04:39.667Z"
+  }
+]
