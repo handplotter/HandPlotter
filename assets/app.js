@@ -153,11 +153,13 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     const q = renderEstimate()
     const text = buildSummary(q)
     const status = $('copy-status')
-    status.classList.remove('copy-note-ok')
+    // The permanent .copy-note-permanent (always visible, next to book-btn)
+    // already tells the visitor this button copies their quote -- this only
+    // needs to speak up when that DIDN'T happen, so the fallback textarea
+    // has an explanation instead of silently appearing.
     try {
       await navigator.clipboard.writeText(text)
-      status.textContent = 'The quote is already copied to your device! Just paste it and send in Messenger :))'
-      status.classList.add('copy-note-ok')
+      status.textContent = ''
     } catch (e) {
       // Clipboard API needs a secure context (https) or can be blocked by the
       // browser; fall back to showing the text so the customer can select and

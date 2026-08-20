@@ -465,11 +465,16 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
 
 .save-badge { color: var(--accent); font-weight: 700; }
 
-#copy-status { font-size: 0.85rem; color: var(--ink-soft); min-height: 1.2em; }
-/* PART125: once the quote is actually copied, say so plainly and warmly --
-   a highlighted callout instead of a thin gray status line, since this is
-   the one thing standing between the visitor and a manual copy/paste. */
-.copy-note-ok {
+#copy-status { font-size: 0.85rem; color: var(--warn-ink); min-height: 1.2em; }
+/* PART125: a PERMANENT highlighted callout next to the book button (not a
+   status message that only appears after clicking) -- sets the expectation
+   up front instead of surprising the visitor after the fact. The mini logo
+   gets a small continuous loop so this reads as a friendly little mascot
+   note, not a plain banner. */
+.copy-note-permanent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--navy-dark);
@@ -478,10 +483,20 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
   border-radius: 10px;
   padding: 10px 14px;
   margin-top: 4px;
-  animation: note-pop .3s var(--ease);
 }
-@keyframes note-pop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .copy-note-ok { animation: none; } }
+.copy-note-logo {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  animation: logo-bob 2.4s ease-in-out infinite;
+}
+@keyframes logo-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25%      { transform: translateY(-3px) rotate(-6deg); }
+  50%      { transform: translateY(0) rotate(0deg); }
+  75%      { transform: translateY(-1px) rotate(4deg); }
+}
+@media (prefers-reduced-motion: reduce) { .copy-note-logo { animation: none; } }
 #copy-fallback { display: none; margin-top: 8px; }
 #copy-fallback textarea { width: 100%; min-height: 130px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
 
