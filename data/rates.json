@@ -36,6 +36,9 @@
   "minOrder": 50,
   "firstOrderDiscount": 0.1,
   "downPaymentPct": 0.5,
+  "pdfDiscount": 30,
+  "handTypingFeePerPage": 12,
+  "ownHandwritingFee": 70,
   "__catalog": {
     "sizes": [
       {
@@ -123,5 +126,5 @@
       }
     ]
   },
-  "generatedAt": "2026-08-19T02:37:19.069Z"
+  "generatedAt": "2026-08-20T06:27:53.133Z"
 }

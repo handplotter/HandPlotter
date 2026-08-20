@@ -60,6 +60,15 @@ window.HandPlotterPricing = (function () {
     minOrder: 100,
     firstOrderDiscount: 0.10,
     downPaymentPct: 0.50,
+    // PART125: submission-format fees, same formula/order-of-operations as
+    // the in-app engine's compute() -- see its comment. This site's quote
+    // form only self-declares fromPdf/requiresHandTyping (ownHandwriting has
+    // no meaning for an anonymous visitor -- "already registered" needs a
+    // known customer, which only exists in-app); the DEFAULTS stay in sync
+    // across all three engines regardless, per this file's own header note.
+    pdfDiscount: 30,
+    handTypingFeePerPage: 12,
+    ownHandwritingFee: 70,
   }
 
   const clone = (o) => JSON.parse(JSON.stringify(o))
@@ -139,8 +148,16 @@ window.HandPlotterPricing = (function () {
     const firstOrderDiscountAmt = p.firstOrder ? rushAdjustedTotal * cfg.firstOrderDiscount : 0
     const afterFirstOrder = rushAdjustedTotal - firstOrderDiscountAmt
 
-    const total = Math.round(Math.max(cfg.minOrder, afterFirstOrder) * 100) / 100
-    const minimumApplied = total > Math.round(afterFirstOrder * 100) / 100
+    // PART125: flat submission-format fees, applied after every multiplier/
+    // percentage discount and before the minimum-order floor -- see the
+    // in-app engine's compute() for why this ordering.
+    const pdfDiscountAmt = p.fromPdf ? cfg.pdfDiscount : 0
+    const handTypingFeeAmt = p.requiresHandTyping ? cfg.handTypingFeePerPage * pages : 0
+    const ownHandwritingFeeAmt = (p.ownHandwriting && !p.fontAlreadyRegistered) ? cfg.ownHandwritingFee : 0
+    const preFloor = afterFirstOrder - pdfDiscountAmt + handTypingFeeAmt + ownHandwritingFeeAmt
+
+    const total = Math.round(Math.max(cfg.minOrder, preFloor) * 100) / 100
+    const minimumApplied = total > Math.round(preFloor * 100) / 100
     const downPayment = Math.round(total * cfg.downPaymentPct * 100) / 100
 
     const turnaroundLabel = labelFor(CAT.turnarounds, turnaroundId)
@@ -158,6 +175,9 @@ window.HandPlotterPricing = (function () {
       volumePct: volumePct, volumeDiscountAmt: volumeDiscountAmt,
       orderSubtotal: orderSubtotal, rushAdjustedTotal: rushAdjustedTotal,
       firstOrder: !!p.firstOrder, firstOrderDiscountAmt: firstOrderDiscountAmt,
+      fromPdf: !!p.fromPdf, pdfDiscountAmt: pdfDiscountAmt,
+      requiresHandTyping: !!p.requiresHandTyping, handTypingFeeAmt: handTypingFeeAmt,
+      ownHandwriting: !!p.ownHandwriting, ownHandwritingFeeAmt: ownHandwritingFeeAmt,
       minimumApplied: minimumApplied, minOrder: cfg.minOrder,
       total: total, downPayment: downPayment, capNote: capNote,
     }

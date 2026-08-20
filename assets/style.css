@@ -130,6 +130,10 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
 }
 @keyframes draw-squiggle { to { stroke-dashoffset: 0; } }
 @keyframes pop-dot { from { opacity: 0; transform: scale(.2); } to { opacity: 1; transform: scale(1); } }
+/* PART125: the dot is the pen's nib -- once it lands, give it a slow, gentle
+   pulse so the hero reads as "still writing", not a static illustration. */
+.hero-squiggle .squiggle-dot { animation: pop-dot .35s var(--ease) 1.15s forwards, pen-pulse 2.2s ease-in-out 1.5s infinite; }
+@keyframes pen-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
 @media (prefers-reduced-motion: reduce) {
   .hero-squiggle .squiggle-path { stroke-dashoffset: 0; animation: none; }
   .hero-squiggle .squiggle-dot { opacity: 1; animation: none; }
@@ -233,7 +237,12 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
   transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s;
 }
 .offer-card:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(20,25,35,.08); }
-.offer-card-highlight { border-color: var(--navy); position: relative; }
+.offer-card-highlight { border-color: var(--navy); position: relative; animation: card-glow 3.4s ease-in-out infinite; }
+@keyframes card-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(47,74,114,0); }
+  50% { box-shadow: 0 0 0 4px rgba(47,74,114,.10); }
+}
+@media (prefers-reduced-motion: reduce) { .offer-card-highlight { animation: none; } }
 .offer-icon {
   width: 34px; height: 34px;
   border-radius: 9px;
@@ -352,7 +361,10 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
   border-radius: 999px;
   padding: 3px 9px;
   white-space: nowrap;
+  animation: badge-nudge 2.6s ease-in-out infinite;
 }
+@keyframes badge-nudge { 0%, 80%, 100% { transform: translateY(0); } 90% { transform: translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) { .diag-badge { animation: none; } }
 .diag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 @media (max-width: 480px) { .diag-grid { grid-template-columns: 1fr; } }
 .stepper {
@@ -433,13 +445,32 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
   transition: background .18s, transform .1s, box-shadow .18s;
 }
 .btn:active { transform: scale(.98); }
-.btn-primary { background: var(--navy); color: #fff; box-shadow: 0 6px 18px rgba(47,74,114,.25); }
-.btn-primary:hover { background: var(--navy-dark); }
-.btn-primary[aria-disabled="true"] { background: var(--line); color: var(--ink-soft); cursor: not-allowed; box-shadow: none; }
+.btn:hover { transform: translateY(-1px); }
+.btn-primary {
+  background: var(--navy); color: #fff;
+  box-shadow: 0 6px 18px rgba(47,74,114,.25), 0 0 0 0 rgba(47,74,114,.35);
+  animation: cta-breathe 3.2s ease-in-out infinite;
+}
+.btn-primary:hover { background: var(--navy-dark); animation-play-state: paused; box-shadow: 0 10px 24px rgba(47,74,114,.35); }
+.btn-primary[aria-disabled="true"] { background: var(--line); color: var(--ink-soft); cursor: not-allowed; box-shadow: none; animation: none; }
+/* PART125: a slow ambient pulse on the one button every visitor needs to
+   find -- subtle enough to read as "alive", not "flashing ad". */
+@keyframes cta-breathe {
+  0%, 100% { box-shadow: 0 6px 18px rgba(47,74,114,.25), 0 0 0 0 rgba(47,74,114,.28); }
+  50% { box-shadow: 0 6px 18px rgba(47,74,114,.25), 0 0 0 7px rgba(47,74,114,0); }
+}
 .btn-ghost { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
 .btn-ghost:hover { background: var(--navy-soft); }
+@media (prefers-reduced-motion: reduce) { .btn-primary { animation: none; } .btn:hover { transform: none; } }
 
-#copy-status { font-size: 0.85rem; color: var(--ink-soft); min-height: 1.2em; }
+.save-badge { color: var(--accent); font-weight: 700; }
+
+.btn-send { gap: 8px; }
+.send-icon { width: 18px; height: 18px; transition: transform .25s var(--ease); }
+.btn-send:hover .send-icon { transform: translate(3px, -3px) rotate(8deg); }
+@media (prefers-reduced-motion: reduce) { .send-icon { transition: none; } .btn-send:hover .send-icon { transform: none; } }
+
+#copy-status, #send-status { font-size: 0.85rem; color: var(--ink-soft); min-height: 1.2em; }
 #copy-fallback { display: none; margin-top: 8px; }
 #copy-fallback textarea { width: 100%; min-height: 130px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
 

@@ -220,6 +220,22 @@
           <label for="f-first" class="toggle-text">This is my first order</label>
         </div>
 
+        <div class="field toggle-row">
+          <label class="toggle-switch">
+            <input type="checkbox" id="f-frompdf">
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+          <label for="f-frompdf" class="toggle-text">I'll send a PDF (typed text, not a photo) <span class="save-badge" id="pdf-save-badge"></span></label>
+        </div>
+
+        <div class="field toggle-row">
+          <label class="toggle-switch">
+            <input type="checkbox" id="f-handtyping">
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+          <label for="f-handtyping" class="toggle-text">It's only a photo/scan -- you'll need to type it up</label>
+        </div>
+
         <div class="estimate">
           <div id="q-breakdown"></div>
           <div class="q-total-row">
@@ -245,6 +261,11 @@
           <div id="copy-fallback">
             <textarea id="copy-fallback-text" readonly onclick="this.select()"></textarea>
           </div>
+          <button type="button" id="send-btn" class="btn btn-ghost btn-send">
+            <svg class="send-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12 20 4 13 20l-2.5-6.5L4 12z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            Send my quote straight to Messenger
+          </button>
+          <div id="send-status"></div>
         </div>
       </div>
     </section>
