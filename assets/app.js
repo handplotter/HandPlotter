@@ -166,29 +166,50 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     }
   }
 
+  // isLikelyMobile(): navigator.share() also exists on desktop Windows/Mac,
+  // where it opens the OS share sheet (Nearby Sharing, Discord, Outlook,
+  // Teams...) with NO Messenger entry at all, because Messenger is a website
+  // there, not an installed app the OS knows how to hand text to. Tested
+  // live 2026-08-20 -- the desktop share sheet genuinely has nothing useful
+  // in it. On a phone, the Messenger APP is what receives shared text, and
+  // IS registered as a share target, so this only attempts Web Share where
+  // it can actually reach Messenger; everywhere else goes straight to the
+  // reliable redirect+copy path below.
+  function isLikelyMobile() {
+    if (/Android|iPhone|iPod/i.test(navigator.userAgent)) return true
+    // iPadOS Safari reports itself as "MacIntel" -- multi-touch is what
+    // actually distinguishes an iPad from a real Mac.
+    if (/iPad/i.test(navigator.userAgent)) return true
+    if (/Macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1) return true
+    return false
+  }
+
   // "Send my quote straight to Messenger": no backend, no App Review, and
   // Facebook does not let a plain web link pre-fill a message's TEXT for an
   // arbitrary Page (that would be message injection) -- so book-btn above is
   // the honest ceiling for a bare m.me link: copy + open, customer pastes.
   //
-  // navigator.share() gets a real step closer WITHOUT any of that: on a
-  // phone (most visitors, arriving from a Messenger/FB link) it hands the
-  // quote text to the OS share sheet, the customer taps Messenger, and
-  // Messenger opens with that text ALREADY in the compose box -- no manual
-  // copy, no manual paste, just Send. This is the real mechanism iOS/Android
-  // "share to Messenger" buttons use; it is not a trick, and it fails
-  // (Promise rejects, or the API is simply absent on desktop) exactly when
-  // there is no share target to hand off to, so the fallback below is not a
-  // degraded experience, it is the SAME thing book-btn already does.
+  // navigator.share() gets a real step closer WITHOUT any of that, but ONLY
+  // on a phone (see isLikelyMobile above): it hands the quote text to the OS
+  // share sheet, the customer taps the Messenger APP, and Messenger opens
+  // with that text ALREADY in the compose box -- no manual copy, no manual
+  // paste, just review and Send. This is the real mechanism iOS/Android
+  // "share to Messenger" buttons use.
+  //
+  // Everywhere else (desktop, or share() itself failing), this REDIRECTS to
+  // Messenger the same reliable way book-btn does (a real m.me link) and
+  // copies the quote text so pasting it in is the only manual step left --
+  // "opens Messenger" is guaranteed either way, "text already typed" is the
+  // part that is only possible where the OS can actually hand it off.
   async function sendQuote() {
     const q = renderEstimate()
     const text = buildSummary(q)
     const status = $('send-status')
     const href = messengerHref()
-    if (navigator.share) {
+    if (isLikelyMobile() && navigator.share) {
       try {
         await navigator.share({ text: text })
-        status.textContent = 'Shared -- pick Messenger, then tap Send.'
+        status.textContent = 'Shared. If you picked Messenger, review it there and tap Send.'
         return
       } catch (e) {
         // AbortError = the customer closed the share sheet themselves; that
