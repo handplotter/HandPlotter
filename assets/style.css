@@ -465,12 +465,23 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
 
 .save-badge { color: var(--accent); font-weight: 700; }
 
-.btn-send { gap: 8px; }
-.send-icon { width: 18px; height: 18px; transition: transform .25s var(--ease); }
-.btn-send:hover .send-icon { transform: translate(3px, -3px) rotate(8deg); }
-@media (prefers-reduced-motion: reduce) { .send-icon { transition: none; } .btn-send:hover .send-icon { transform: none; } }
-
-#copy-status, #send-status { font-size: 0.85rem; color: var(--ink-soft); min-height: 1.2em; }
+#copy-status { font-size: 0.85rem; color: var(--ink-soft); min-height: 1.2em; }
+/* PART125: once the quote is actually copied, say so plainly and warmly --
+   a highlighted callout instead of a thin gray status line, since this is
+   the one thing standing between the visitor and a manual copy/paste. */
+.copy-note-ok {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--navy-dark);
+  background: var(--navy-soft);
+  border: 1px solid var(--navy);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-top: 4px;
+  animation: note-pop .3s var(--ease);
+}
+@keyframes note-pop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .copy-note-ok { animation: none; } }
 #copy-fallback { display: none; margin-top: 8px; }
 #copy-fallback textarea { width: 100%; min-height: 130px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
 

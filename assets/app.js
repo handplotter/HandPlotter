@@ -153,9 +153,11 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     const q = renderEstimate()
     const text = buildSummary(q)
     const status = $('copy-status')
+    status.classList.remove('copy-note-ok')
     try {
       await navigator.clipboard.writeText(text)
-      status.textContent = 'Copied. Paste it into the Messenger chat that just opened.'
+      status.textContent = 'The quote is already copied to your device! Just paste it and send in Messenger :))'
+      status.classList.add('copy-note-ok')
     } catch (e) {
       // Clipboard API needs a secure context (https) or can be blocked by the
       // browser; fall back to showing the text so the customer can select and
@@ -164,86 +166,6 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
       $('copy-fallback').style.display = 'block'
       status.textContent = 'Could not auto-copy -- select the text below and copy it manually.'
     }
-  }
-
-  // isLikelyMobile(): navigator.share() also exists on desktop Windows/Mac,
-  // where it opens the OS share sheet (Nearby Sharing, Discord, Outlook,
-  // Teams...) with NO Messenger entry at all, because Messenger is a website
-  // there, not an installed app the OS knows how to hand text to. Tested
-  // live 2026-08-20 -- the desktop share sheet genuinely has nothing useful
-  // in it. On a phone, the Messenger APP is what receives shared text, and
-  // IS registered as a share target, so this only attempts Web Share where
-  // it can actually reach Messenger; everywhere else goes straight to the
-  // reliable redirect+copy path below.
-  function isLikelyMobile() {
-    if (/Android|iPhone|iPod/i.test(navigator.userAgent)) return true
-    // iPadOS Safari reports itself as "MacIntel" -- multi-touch is what
-    // actually distinguishes an iPad from a real Mac.
-    if (/iPad/i.test(navigator.userAgent)) return true
-    if (/Macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1) return true
-    return false
-  }
-
-  // "Send my quote straight to Messenger": no backend, no App Review, and
-  // Facebook does not let a plain web link pre-fill a message's TEXT for an
-  // arbitrary Page (that would be message injection) -- so book-btn above is
-  // the honest ceiling for a bare m.me link: copy + open, customer pastes.
-  //
-  // navigator.share() gets a real step closer WITHOUT any of that, but ONLY
-  // on a phone (see isLikelyMobile above): it hands the quote text to the OS
-  // share sheet, the customer taps the Messenger APP, and Messenger opens
-  // with that text ALREADY in the compose box -- no manual copy, no manual
-  // paste, just review and Send. This is the real mechanism iOS/Android
-  // "share to Messenger" buttons use.
-  //
-  // Everywhere else (desktop, or share() itself failing), this REDIRECTS to
-  // Messenger the same reliable way book-btn does (a real m.me link) and
-  // copies the quote text so pasting it in is the only manual step left --
-  // "opens Messenger" is guaranteed either way, "text already typed" is the
-  // part that is only possible where the OS can actually hand it off.
-  async function sendQuote() {
-    const q = renderEstimate()
-    const text = buildSummary(q)
-    const status = $('send-status')
-    const href = messengerHref()
-    if (isLikelyMobile() && navigator.share) {
-      try {
-        await navigator.share({ text: text })
-        status.textContent = 'Shared. If you picked Messenger, review it there and tap Send.'
-        return
-      } catch (e) {
-        // AbortError = the customer closed the share sheet themselves; that
-        // is not a failure worth reporting, just quietly stop.
-        if (e && e.name === 'AbortError') return
-        // Any other failure (no share target chosen, share() unsupported for
-        // this content, etc.) falls through to the same copy+open book-btn
-        // already relies on -- see below.
-      }
-    }
-    // No Web Share (desktop, or it failed): open Messenger FIRST, still
-    // synchronously inside this click handler, THEN copy the text. Opening
-    // it AFTER an `await` (the clipboard write used to run first) loses the
-    // "this came from a real click" flag some browsers require for
-    // window.open -- the popup silently never appears, which is exactly the
-    // "doesn't redirect to Messenger" report. book-btn never had this bug
-    // because it is a real <a href> the browser navigates natively, not a
-    // script-driven window.open.
-    const win = href ? window.open(href, '_blank', 'noopener') : null
-    try {
-      await navigator.clipboard.writeText(text)
-      status.textContent = win
-        ? 'Copied your quote -- paste it into the Messenger tab that just opened.'
-        : 'Copied your quote.'
-    } catch (e) {
-      $('copy-fallback-text').value = text
-      $('copy-fallback').style.display = 'block'
-      status.textContent = 'Could not auto-copy -- select the text below and copy it manually.'
-    }
-    if (href && !win) status.textContent += ' Your browser blocked the pop-up -- use "Message us on Facebook to book" above instead.'
-  }
-  function initSendButton() {
-    const btn = $('send-btn'); if (!btn) return
-    btn.addEventListener('click', () => { sendQuote() })
   }
 
   // loadProofPhotos(): fetches data/proof.json (Finance Manager's "Website"
@@ -432,7 +354,6 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
       if (!messengerHref()) { e.preventDefault(); return }
       copySummary()
     })
-    initSendButton()
 
     initMessengerLinks()
     renderEstimate()
