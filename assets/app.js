@@ -199,15 +199,26 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
         // already relies on -- see below.
       }
     }
+    // No Web Share (desktop, or it failed): open Messenger FIRST, still
+    // synchronously inside this click handler, THEN copy the text. Opening
+    // it AFTER an `await` (the clipboard write used to run first) loses the
+    // "this came from a real click" flag some browsers require for
+    // window.open -- the popup silently never appears, which is exactly the
+    // "doesn't redirect to Messenger" report. book-btn never had this bug
+    // because it is a real <a href> the browser navigates natively, not a
+    // script-driven window.open.
+    const win = href ? window.open(href, '_blank', 'noopener') : null
     try {
       await navigator.clipboard.writeText(text)
-      status.textContent = 'Copied your quote -- opening Messenger, paste it in.'
+      status.textContent = win
+        ? 'Copied your quote -- paste it into the Messenger tab that just opened.'
+        : 'Copied your quote.'
     } catch (e) {
       $('copy-fallback-text').value = text
       $('copy-fallback').style.display = 'block'
       status.textContent = 'Could not auto-copy -- select the text below and copy it manually.'
     }
-    if (href) window.open(href, '_blank', 'noopener')
+    if (href && !win) status.textContent += ' Your browser blocked the pop-up -- use "Message us on Facebook to book" above instead.'
   }
   function initSendButton() {
     const btn = $('send-btn'); if (!btn) return
