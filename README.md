@@ -21,7 +21,43 @@ not the Page's display name. Until this is set, the button on the page stays
 visibly disabled with a warning banner -- that's intentional, so a forgotten
 step is obvious instead of silently linking nowhere.
 
-### 2. Export real rates from the app
+### 2. (optional) Turn on the AI chat widget
+
+A small floating "Ask HandPlotter" chat button in the bottom-right corner
+that answers FAQ/pricing questions by calling Gemini's free tier **directly
+from the visitor's browser** -- there is still no server, so the AI is
+stateless: nothing typed into it is saved anywhere, and it never places or
+tracks an order. It always points the visitor at the "Get an instant
+estimate" calculator for a real total and the Messenger button to actually
+book, exactly like the rest of this page. It stays hidden automatically
+until you set a key.
+
+1. Open `assets/ai_chat.js` and change the first real line of code:
+   ```js
+   const GEMINI_API_KEY = 'REPLACE_WITH_YOUR_GEMINI_KEY'
+   ```
+   Get a free key from [Google AI Studio](https://aistudio.google.com/apikey).
+2. **Accept the tradeoff before you do this**: this key ships in plain text
+   to every visitor's browser. Anyone can read it from page source (View
+   Source, or the Network tab) and use it elsewhere, for free, using your
+   quota. This is a reasonable risk for a low-traffic personal/small-business
+   page, not for anything expecting real scale. Two cheap mitigations, do
+   both:
+   - In [Google Cloud Console -> Credentials](https://console.cloud.google.com/apis/credentials),
+     add an **HTTP referrer restriction** on the key limiting it to your
+     `https://<username>.github.io/*` domain. This stops casual scraping
+     bots, but NOT a determined thief -- the Referer header is just an
+     ordinary HTTP header anyone calling the API directly (not through a
+     real browser) can fake. Treat it as a speed bump, not a lock.
+   - Make sure the Google Cloud project the key belongs to has **no billing
+     enabled**. Then the worst case of abuse is your free-tier daily quota
+     running out (the chat widget just stops answering until it resets) --
+     never a surprise bill.
+3. This is the same `chatGemini()` call and model-fallback chain as
+   `messenger_bot/src/llm_adapter.js` -- see that file if you ever need to
+   change the model list.
+
+### 3. Export real rates from the app
 
 The page ships with the same *example* numbers as the app's defaults, and
 says so ("Showing example rates"). Before this goes live, publish your real,
@@ -44,7 +80,7 @@ export step exists to prevent -- `assets/pricing.js` is a faithful port of
 `messenger_bot/src/pricing.js`'s `compute()`; if you ever change the pricing
 *formula* (not just the numbers), update it in both places.
 
-### 3. Replace the photo placeholder
+### 4. Replace the photo placeholder
 
 `index.html`'s `#proof` section is a clearly-marked placeholder box, not a
 real gallery -- there was no plotted output to photograph yet when this page

@@ -7,7 +7,7 @@
 <meta name="description" content="Get your text, certificates, or invitations plotted in real handwritten ink. Get an instant estimate and message us on Facebook to book.">
 <meta name="theme-color" content="#2f4a72">
 <link rel="icon" href="assets/icon.png">
-<link rel="stylesheet" href="assets/style.css?v=20260820">
+<link rel="stylesheet" href="assets/style.css?v=20260824">
 </head>
 <body>
 
@@ -299,7 +299,35 @@
   </div>
 </footer>
 
+<!--
+  AI chat widget: FAQ + quote helper, calls Gemini directly from the browser
+  (this is a static site, no server -- see assets/ai_chat.js). Hidden
+  automatically until GEMINI_API_KEY is set there. Stateless: nothing typed
+  here is saved anywhere; booking still happens via the Messenger button
+  above, same as always.
+-->
+<div id="ai-chat-teaser" class="ai-chat-teaser">
+  <span>Any question how our system works? Ask away! 😊</span>
+  <button type="button" id="ai-chat-teaser-close" aria-label="Dismiss">&times;</button>
+</div>
+<div id="ai-chat-launcher" class="ai-chat-launcher" role="button" tabindex="0" aria-expanded="false" aria-label="Chat with the HandPlotter assistant">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4H6.5A2.5 2.5 0 0 1 4 13.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+<div id="ai-chat-panel" class="ai-chat-panel">
+  <div class="ai-chat-header">
+    <span>Ask HandPlotter</span>
+    <button type="button" id="ai-chat-close" aria-label="Close chat">&times;</button>
+  </div>
+  <div id="ai-chat-messages" class="ai-chat-messages"></div>
+  <p class="ai-chat-disclaimer">AI assistant &mdash; estimates are illustrative; nothing is booked until confirmed on Messenger.</p>
+  <div class="ai-chat-inputrow">
+    <textarea id="ai-chat-input" rows="1" placeholder="Type a message..."></textarea>
+    <button type="button" id="ai-chat-send" class="ai-chat-send-btn">Send</button>
+  </div>
+</div>
+
 <script src="assets/pricing.js?v=20260820"></script>
 <script src="assets/app.js?v=20260820"></script>
+<script src="assets/ai_chat.js?v=20260824c"></script>
 </body>
 </html>
