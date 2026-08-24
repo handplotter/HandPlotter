@@ -28,11 +28,22 @@
 // in Cloud Console, not an oversight here.
 const GEMINI_API_KEY = atob('QVEuQWI4Uk42SkFaZTBtTmlNR0ZUZ1czc19oRTJCaE9WdGl1TTBlR3pDaTFFZjBFRFpMY1E=')
 
-// Same alias + fallback chain as llm_adapter.js, same reasoning: the alias
-// auto-tracks Google's current free flash model, and free-tier capacity is
-// flaky enough that a 503/429/404 should fall through to the next model
-// rather than surface an error. See llm_adapter.js's GEMINI_FALLBACKS comment.
-const GEMINI_MODEL_CHAIN = ['gemini-flash-latest', 'gemini-flash-lite-latest', 'gemini-2.0-flash']
+// Free-tier capacity is genuinely flaky (documented in llm_adapter.js's own
+// GEMINI_FALLBACKS comment) -- confirmed live 2026-08-24 on this exact
+// widget: 'gemini-flash-latest' returned 503 after waiting as long as 43s
+// before failing, while 'gemini-flash-lite-latest' answered the SAME
+// question correctly in ~1.2s both times tested. Lite goes FIRST here (a
+// deliberate reorder from llm_adapter.js's server-side chain, which tries
+// the fuller model first since a Messenger customer isn't sitting on a
+// blocking UI the way a page visitor is) precisely because a slow win still
+// reads as broken to someone watching a chat bubble. The per-attempt
+// timeout below is what actually bounds worst-case wait, regardless of
+// chain order -- the reorder just makes the COMMON case fast too.
+const GEMINI_MODEL_CHAIN = ['gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-2.0-flash']
+// Max time to wait on any ONE model attempt before treating it as failed and
+// moving to the next -- without this, a slow-to-503 model (observed: 43s)
+// blocks the whole chain even though a working fallback is one hop away.
+const GEMINI_ATTEMPT_TIMEOUT_MS = 12000
 
 ;(function () {
   const $ = (id) => document.getElementById(id)
@@ -227,15 +238,24 @@ const GEMINI_MODEL_CHAIN = ['gemini-flash-latest', 'gemini-flash-lite-latest', '
       const url = 'https://generativelanguage.googleapis.com/v1beta/models/' +
         encodeURIComponent(model) + ':streamGenerateContent?alt=sse&key=' + encodeURIComponent(key)
       let res
+      const ctrl = new AbortController()
+      const timeoutId = setTimeout(() => ctrl.abort(), GEMINI_ATTEMPT_TIMEOUT_MS)
       try {
         res = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
+          signal: ctrl.signal,
         })
       } catch (e) {
-        lastErr = 'network error: ' + String((e && e.message) || e)
+        // A timeout abort lands here too (AbortError) -- treated the same as
+        // any other network failure: try the next model rather than give up.
+        lastErr = (e && e.name === 'AbortError')
+          ? 'timed out after ' + GEMINI_ATTEMPT_TIMEOUT_MS + 'ms'
+          : 'network error: ' + String((e && e.message) || e)
         continue
+      } finally {
+        clearTimeout(timeoutId)
       }
       if (res.ok) {
         await forEachLine(res, (line) => {
