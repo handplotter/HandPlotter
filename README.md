@@ -37,25 +37,40 @@ until you set a key.
    const GEMINI_API_KEY = 'REPLACE_WITH_YOUR_GEMINI_KEY'
    ```
    Get a free key from [Google AI Studio](https://aistudio.google.com/apikey).
-2. **Accept the tradeoff before you do this**: this key ships in plain text
-   to every visitor's browser. Anyone can read it from page source (View
-   Source, or the Network tab) and use it elsewhere, for free, using your
-   quota. This is a reasonable risk for a low-traffic personal/small-business
-   page, not for anything expecting real scale. Two cheap mitigations, do
-   both:
-   - In [Google Cloud Console -> Credentials](https://console.cloud.google.com/apis/credentials),
-     add an **HTTP referrer restriction** on the key limiting it to your
-     `https://<username>.github.io/*` domain. This stops casual scraping
-     bots, but NOT a determined thief -- the Referer header is just an
-     ordinary HTTP header anyone calling the API directly (not through a
-     real browser) can fake. Treat it as a speed bump, not a lock.
-   - Make sure the Google Cloud project the key belongs to has **no billing
-     enabled**. Then the worst case of abuse is your free-tier daily quota
-     running out (the chat widget just stops answering until it resets) --
-     never a surprise bill.
-3. This is the same `chatGemini()` call and model-fallback chain as
-   `messenger_bot/src/llm_adapter.js` -- see that file if you ever need to
-   change the model list.
+2. **Accept the tradeoff before you do this**: this key ships to every
+   visitor's browser. Anyone can read it from page source (View Source, or
+   the Network tab) and use it elsewhere, for free, using your quota. This
+   is a reasonable risk for a low-traffic personal/small-business page, not
+   for anything expecting real scale. `ai_chat.js` wraps the key in a
+   trivial base64 decode, which stops nothing but the dumbest case
+   (automated bots that crawl public repos/sites grepping for plaintext
+   key-shaped strings) -- do not treat it as real secrecy. Two mitigations
+   that actually matter, both done in
+   [Google Cloud Console -> Credentials](https://console.cloud.google.com/apis/credentials)
+   on the key itself:
+   - **API restrictions -> Gemini API only**, so a stolen key can't be used
+     against any other API on the project. Note: **"Application
+     restrictions" (the website/HTTP-referrer lock) is not offered at all**
+     for the newer service-account-bound key type AI Studio currently
+     issues -- confirmed live 2026-08-24, not an oversight if you don't see
+     that option either.
+   - Confirm the project has **no billing account linked** (Billing, in the
+     same console). Then the worst case of abuse is your free-tier daily
+     quota running out (the chat widget just stops answering until it
+     resets) -- never a bill.
+   Pushing a real key will also trip **GitHub's push protection** ("GCP API
+   Key Bound to a Service Account") -- that's expected for this same reason;
+   use the "I'll fix it later" / "the secret is real, I understand the risk"
+   option it offers (the other two options assert something false) to let
+   the push through once the two mitigations above are in place.
+3. This is the same `chatGemini()` call as `messenger_bot/src/llm_adapter.js`,
+   but the model order is deliberately DIFFERENT: lite-first, not
+   full-model-first. Live testing found the full `gemini-flash-latest`
+   model can sit overloaded for 40+ seconds before failing over, which reads
+   as a broken/hung widget to someone watching a chat bubble in a way it
+   never would for a Messenger reply; the 12s per-attempt timeout in
+   `chatGemini()` is what actually bounds worst-case wait regardless of
+   order, but starting with the fast model keeps the common case fast too.
 
 ### 3. Export real rates from the app
 
