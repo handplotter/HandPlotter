@@ -7,7 +7,7 @@
 <meta name="description" content="Get your text, certificates, or invitations plotted in real handwritten ink. Get an instant estimate and message us on Facebook to book.">
 <meta name="theme-color" content="#2f4a72">
 <link rel="icon" href="assets/icon.png">
-<link rel="stylesheet" href="assets/style.css?v=20260826c">
+<link rel="stylesheet" href="assets/style.css?v=20260826d">
 </head>
 <body>
 
@@ -71,9 +71,17 @@
       default; do not send this link out while it says "coming soon" -- see
       web/README.md's publish checklist.
     -->
+    <!-- Dropdown (collapsed by default): keeps the gallery out of the way
+         until someone actually wants to see it -- same pattern as reviews
+         below and the sample showcase / font library further down. -->
     <section id="proof" class="reveal">
-      <h2>Real plotted output</h2>
-      <div id="proof-gallery" class="proof-grid"></div>
+      <details class="section-toggle">
+        <summary>
+          <h2>Real plotted output</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div id="proof-gallery" class="proof-grid"></div>
+      </details>
     </section>
 
     <!--
@@ -81,12 +89,10 @@
       as proof photos -- see Finance Manager's Website tab (Add a review) or
       edit data/reviews.json by hand. object-fit:contain (not proof-grid's
       cover/4:3 crop) since a screenshot's own text must stay fully readable,
-      not get cropped to fit a fixed frame. A <details> dropdown (collapsed by
-      default) rather than its own always-open section -- there's nothing to
-      show yet, and it stays out of the way once there is.
+      not get cropped to fit a fixed frame.
     -->
     <section id="reviews" class="reveal">
-      <details class="reviews-toggle">
+      <details class="section-toggle">
         <summary>
           <h2>What customers say</h2>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -162,8 +168,13 @@
       </div>
 
       <div class="card">
-        <h3>See it for yourself</h3>
-        <div id="sample-gallery" class="sample-list"></div>
+        <details class="section-toggle">
+          <summary>
+            <h3>See it for yourself</h3>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div id="sample-gallery" class="sample-list"></div>
+        </details>
       </div>
 
       <p class="disclaimer">
@@ -183,24 +194,29 @@
       backend/font_license.py's --scan/--set decisions for the paper trail.
     -->
     <section id="font-library" class="reveal">
-      <h2>Or pick from our font library</h2>
-      <p class="lead">
-        Every one of these is ready to plot today -- no beta, no waiting.
-        A real sample of each, straight off the plotter's own renderer.
-      </p>
-      <div class="pill-group" id="font-filter" role="radiogroup" aria-label="Font category">
-        <button type="button" class="pill active" data-cat="all">All</button>
-        <button type="button" class="pill" data-cat="commercial">Commercial-style</button>
-        <button type="button" class="pill" data-cat="ems">EMS</button>
-        <button type="button" class="pill" data-cat="hershey">Hershey</button>
-      </div>
-      <div id="font-gallery" class="font-grid"></div>
-      <p class="disclaimer">
-        Only fonts we can legally redistribute are shown here -- each one is
-        either public-domain (Hershey), open-licensed (EMS, SIL OFL), or an
-        OFL-licensed family we've confirmed clear for reuse. Tell us the name
-        under a sample when you message us and we'll set it as your font.
-      </p>
+      <details class="section-toggle">
+        <summary>
+          <h2>Or pick from our font library</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <p class="lead">
+          Every one of these is ready to plot today -- no beta, no waiting.
+          A real sample of each, straight off the plotter's own renderer.
+        </p>
+        <div class="pill-group" id="font-filter" role="radiogroup" aria-label="Font category">
+          <button type="button" class="pill active" data-cat="all">All</button>
+          <button type="button" class="pill" data-cat="commercial">Commercial-style</button>
+          <button type="button" class="pill" data-cat="ems">EMS</button>
+          <button type="button" class="pill" data-cat="hershey">Hershey</button>
+        </div>
+        <div id="font-gallery" class="font-grid"></div>
+        <p class="disclaimer">
+          Only fonts we can legally redistribute are shown here -- each one is
+          either public-domain (Hershey), open-licensed (EMS, SIL OFL), or an
+          OFL-licensed family we've confirmed clear for reuse. Tell us the name
+          under a sample when you message us and we'll set it as your font.
+        </p>
+      </details>
     </section>
 
     <section id="quote" class="reveal">
