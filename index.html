@@ -9,7 +9,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://generativelanguage.googleapis.com; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'">
 <link rel="icon" href="assets/icon.png">
-<link rel="stylesheet" href="assets/style.css?v=20260826d">
+<link rel="stylesheet" href="assets/style.css?v=20260826e">
 </head>
 <body>
 
@@ -65,6 +65,41 @@
       </div>
     </section>
 
+    <section id="offer" class="reveal">
+      <h2>What we plot</h2>
+      <div class="offer-grid">
+        <div class="offer-card">
+          <div class="offer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 17.5 15 6.5a2 2 0 0 1 3 3L7 20.5 3 21z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Letters &amp; essays</h3>
+          <p>Typed text, laid out and handwritten across as many pages as you need.</p>
+        </div>
+        <div class="offer-card">
+          <div class="offer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 4 6v6c0 5 3.5 7.6 8 9 4.5-1.4 8-4 8-9V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12.2 11 14l4-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Certificates &amp; invitations</h3>
+          <p>One design, a list of names -- each piece plotted individually in real ink.</p>
+        </div>
+        <div class="offer-card offer-card-highlight">
+          <div class="offer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 20 10 4l4 10 3-6 3 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Labeled diagrams</h3>
+          <p>Simple figures, tables, and math worked out by hand alongside your writing.</p>
+          <a class="offer-link" href="#quote">Add one to your quote &rarr;</a>
+        </div>
+        <div class="offer-card">
+          <div class="offer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 9.5h17M9.5 9.5v11" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <h3>Your own layout</h3>
+          <p>Message us your specifics -- if it can be composed on a page, we can plot it.</p>
+        </div>
+      </div>
+    </section>
+
     <!--
       Proof gallery: reads data/proof.json at load (app.js loadProofPhotos()).
       Publish photos from Finance Manager's Website tab (Add a photo -- copies
@@ -103,39 +138,40 @@
       </details>
     </section>
 
-    <section id="offer" class="reveal">
-      <h2>What we plot</h2>
-      <div class="offer-grid">
-        <div class="offer-card">
-          <div class="offer-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4 17.5 15 6.5a2 2 0 0 1 3 3L7 20.5 3 21z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Letters &amp; essays</h3>
-          <p>Typed text, laid out and handwritten across as many pages as you need.</p>
+    <!--
+      Font library: a static, pre-rendered showcase of every font we can
+      legally offer today (reads data/fonts.json, each entry a small SVG
+      under assets/font-samples/ generated straight from the app's own
+      renderer -- see MASTER_PROJECT/web's font-sample tooling notes).
+      Deliberately excludes anything not confirmed redistributable -- see
+      backend/font_license.py's --scan/--set decisions for the paper trail.
+      Placed ahead of "own handwriting": this is the recommended, no-beta
+      path -- the beta upsell right after it explicitly points back up here.
+    -->
+    <section id="font-library" class="reveal">
+      <details class="section-toggle">
+        <summary>
+          <h2>Or pick from our font library</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <p class="lead">
+          Every one of these is ready to plot today -- no beta, no waiting.
+          A real sample of each, straight off the plotter's own renderer.
+        </p>
+        <div class="pill-group" id="font-filter" role="radiogroup" aria-label="Font category">
+          <button type="button" class="pill active" data-cat="all">All</button>
+          <button type="button" class="pill" data-cat="commercial">Commercial-style</button>
+          <button type="button" class="pill" data-cat="ems">EMS</button>
+          <button type="button" class="pill" data-cat="hershey">Hershey</button>
         </div>
-        <div class="offer-card">
-          <div class="offer-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 4 6v6c0 5 3.5 7.6 8 9 4.5-1.4 8-4 8-9V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12.2 11 14l4-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Certificates &amp; invitations</h3>
-          <p>One design, a list of names -- each piece plotted individually in real ink.</p>
-        </div>
-        <div class="offer-card offer-card-highlight">
-          <div class="offer-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4 20 10 4l4 10 3-6 3 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Labeled diagrams</h3>
-          <p>Simple figures, tables, and math worked out by hand alongside your writing.</p>
-          <a class="offer-link" href="#quote">Add one to your quote &rarr;</a>
-        </div>
-        <div class="offer-card">
-          <div class="offer-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 9.5h17M9.5 9.5v11" stroke="currentColor" stroke-width="1.6"/></svg>
-          </div>
-          <h3>Your own layout</h3>
-          <p>Message us your specifics -- if it can be composed on a page, we can plot it.</p>
-        </div>
-      </div>
+        <div id="font-gallery" class="font-grid"></div>
+        <p class="disclaimer">
+          Only fonts we can legally redistribute are shown here -- each one is
+          either public-domain (Hershey), open-licensed (EMS, SIL OFL), or an
+          OFL-licensed family we've confirmed clear for reuse. Tell us the name
+          under a sample when you message us and we'll set it as your font.
+        </p>
+      </details>
     </section>
 
     <section id="own-handwriting" class="reveal">
@@ -153,7 +189,7 @@
           we refine it -- but we don't yet recommend it for anything
           important or time-sensitive. Results can vary while we're still
           tuning the process. If your order needs to look a certain way with
-          confidence, pick a font from our library below instead.
+          confidence, pick a font from our library above instead.
         </div>
       </div>
 
@@ -185,40 +221,6 @@
         don't look robotically repeated. Expect it to be close to your hand,
         not a 100% match.
       </p>
-    </section>
-
-    <!--
-      Font library: a static, pre-rendered showcase of every font we can
-      legally offer today (reads data/fonts.json, each entry a small SVG
-      under assets/font-samples/ generated straight from the app's own
-      renderer -- see MASTER_PROJECT/web's font-sample tooling notes).
-      Deliberately excludes anything not confirmed redistributable -- see
-      backend/font_license.py's --scan/--set decisions for the paper trail.
-    -->
-    <section id="font-library" class="reveal">
-      <details class="section-toggle">
-        <summary>
-          <h2>Or pick from our font library</h2>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </summary>
-        <p class="lead">
-          Every one of these is ready to plot today -- no beta, no waiting.
-          A real sample of each, straight off the plotter's own renderer.
-        </p>
-        <div class="pill-group" id="font-filter" role="radiogroup" aria-label="Font category">
-          <button type="button" class="pill active" data-cat="all">All</button>
-          <button type="button" class="pill" data-cat="commercial">Commercial-style</button>
-          <button type="button" class="pill" data-cat="ems">EMS</button>
-          <button type="button" class="pill" data-cat="hershey">Hershey</button>
-        </div>
-        <div id="font-gallery" class="font-grid"></div>
-        <p class="disclaimer">
-          Only fonts we can legally redistribute are shown here -- each one is
-          either public-domain (Hershey), open-licensed (EMS, SIL OFL), or an
-          OFL-licensed family we've confirmed clear for reuse. Tell us the name
-          under a sample when you message us and we'll set it as your font.
-        </p>
-      </details>
     </section>
 
     <section id="quote" class="reveal">

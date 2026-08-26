@@ -214,6 +214,10 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
 /* Collapsible section wrapper: reviews, proof gallery, the own-handwriting
    sample showcase, and the font library all use this same <details> pattern
    -- one dropdown look site-wide instead of four one-off implementations. */
+/* Given its own bar (border + accent edge, not just bare heading text) so a
+   dropdown title doesn't read as an inert page heading and get skipped past
+   -- flat colour + hairline border rather than a soft-shadow card, so it
+   still reads as a distinct control rather than one more content block. */
 .section-toggle summary {
   cursor: pointer;
   list-style: none;
@@ -221,15 +225,27 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  transition: border-color .15s var(--ease), background .15s var(--ease);
 }
+.section-toggle summary:hover { border-color: var(--accent); }
 .section-toggle summary::-webkit-details-marker { display: none; }
-.section-toggle summary h2, .section-toggle summary h3 { margin: 0; }
+.section-toggle summary h2, .section-toggle summary h3 {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 1rem;
+}
 .section-toggle summary .chevron {
   width: 22px; height: 22px;
   flex: none;
-  color: var(--ink-soft);
+  color: var(--accent);
   transition: transform .2s var(--ease);
 }
+.section-toggle[open] summary { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
 .section-toggle[open] summary .chevron { transform: rotate(180deg); }
 .section-toggle summary + * { margin-top: 16px; }
 
