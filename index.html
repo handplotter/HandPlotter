@@ -118,6 +118,18 @@
         everything we plot for you then comes out looking like your own hand.
       </p>
 
+      <div class="beta-note">
+        <span class="beta-badge">Beta</span>
+        <div>
+          <strong>This feature is still under development.</strong> Because
+          it's in beta, we're currently building custom fonts for free while
+          we refine it -- but we don't yet recommend it for anything
+          important or time-sensitive. Results can vary while we're still
+          tuning the process. If your order needs to look a certain way with
+          confidence, pick a font from our library below instead.
+        </div>
+      </div>
+
       <div class="card">
         <h3>Photographing your sample</h3>
         <ul class="tips-list">
@@ -140,6 +152,35 @@
         perfect trace -- small natural variation is added on purpose so pages
         don't look robotically repeated. Expect it to be close to your hand,
         not a 100% match.
+      </p>
+    </section>
+
+    <!--
+      Font library: a static, pre-rendered showcase of every font we can
+      legally offer today (reads data/fonts.json, each entry a small SVG
+      under assets/font-samples/ generated straight from the app's own
+      renderer -- see MASTER_PROJECT/web's font-sample tooling notes).
+      Deliberately excludes anything not confirmed redistributable -- see
+      backend/font_license.py's --scan/--set decisions for the paper trail.
+    -->
+    <section id="font-library" class="reveal">
+      <h2>Or pick from our font library</h2>
+      <p class="lead">
+        Every one of these is ready to plot today -- no beta, no waiting.
+        A real sample of each, straight off the plotter's own renderer.
+      </p>
+      <div class="pill-group" id="font-filter" role="radiogroup" aria-label="Font category">
+        <button type="button" class="pill active" data-cat="all">All</button>
+        <button type="button" class="pill" data-cat="commercial">Commercial-style</button>
+        <button type="button" class="pill" data-cat="ems">EMS</button>
+        <button type="button" class="pill" data-cat="hershey">Hershey</button>
+      </div>
+      <div id="font-gallery" class="font-grid"></div>
+      <p class="disclaimer">
+        Only fonts we can legally redistribute are shown here -- each one is
+        either public-domain (Hershey), open-licensed (EMS, SIL OFL), or an
+        OFL-licensed family we've confirmed clear for reuse. Tell us the name
+        under a sample when you message us and we'll set it as your font.
       </p>
     </section>
 
@@ -254,6 +295,18 @@
             Messenger link is not set up yet on this page -- the site owner
             needs to fill in MESSENGER_PAGE_USERNAME in assets/app.js.
           </div>
+          <div class="agree-row">
+            <label class="toggle-switch">
+              <input type="checkbox" id="f-agree-confidential">
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+            <label for="f-agree-confidential" class="agree-text">
+              I agree to keep this conversation and any order details
+              confidential -- both mine and the business's. I won't ask about
+              other customers or how HandPlotter operates internally;
+              understand that doing so puts us both at risk.
+            </label>
+          </div>
           <a id="book-btn" class="btn btn-primary" data-messenger-link target="_blank" rel="noopener">
             Message us on Facebook to book
           </a>
@@ -324,6 +377,15 @@
     <textarea id="ai-chat-input" rows="1" placeholder="Type a message..."></textarea>
     <button type="button" id="ai-chat-send" class="ai-chat-send-btn">Send</button>
   </div>
+</div>
+
+<!--
+  Lightbox: tap any gallery photo (proof gallery or before/after samples) to
+  zoom it full-screen; tap anywhere again to close. Populated by app.js
+  (initLightbox()) -- empty/hidden until a photo is tapped.
+-->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <img id="lightbox-img" src="" alt="">
 </div>
 
 <script src="assets/pricing.js?v=20260820"></script>

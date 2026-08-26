@@ -192,6 +192,68 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
 .proof-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--line); }
 .proof-item .proof-caption { padding: 8px 10px; font-size: 0.82rem; color: var(--ink-soft); }
 
+/* ---------- beta notice (own-handwriting) ---------- */
+.beta-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+.beta-badge {
+  flex: none;
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  background: var(--warn-ink);
+  color: var(--warn-bg);
+  border-radius: 999px;
+  padding: 3px 9px;
+  margin-top: 1px;
+}
+.beta-note strong { color: inherit; }
+
+/* ---------- font library ---------- */
+#font-filter { margin: 14px 0 16px; }
+.font-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+.font-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.font-card:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(20,25,35,.1); }
+.font-card img { width: 100%; height: 64px; object-fit: contain; display: block; background: #fff; padding: 6px 10px; }
+.font-card .font-card-label {
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.font-card .font-card-cat {
+  font-size: .66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--navy);
+  flex: none;
+}
+
 /* ---------- own-handwriting tips ---------- */
 .tips-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
 .tips-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-soft); line-height: 1.4; }
@@ -510,6 +572,21 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
   margin-bottom: 12px;
 }
 
+/* Confidentiality agreement, gating the book-btn Messenger link -- see
+   app.js updateBookAvailability(). Text wraps to 2-3 lines on a phone, so
+   (unlike .toggle-row) the switch stays pinned to the top of the label
+   instead of vertically centering against it. */
+.agree-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--navy-soft);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.agree-row .toggle-switch { margin-top: 2px; }
+.agree-text { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.4; cursor: pointer; }
+
 footer.site {
   border-top: 1px solid var(--line);
   padding: 24px 0 40px;
@@ -750,4 +827,38 @@ footer.site {
 @media (max-width: 420px) {
   .ai-chat-panel { right: 10px; bottom: 10px; left: 10px; width: auto; }
   .ai-chat-launcher { right: 14px; bottom: 14px; }
+}
+
+/* Lightbox: tap a proof/sample photo to zoom full-screen, tap anywhere
+   (backdrop or the photo itself) to close -- see app.js initLightbox().
+   Above the AI chat panel (z-index 31) since a zoomed photo should cover
+   everything else on the page while it's open. */
+.proof-item img, .sample-pair img, .font-card img { cursor: zoom-in; }
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10,12,16,.92);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s var(--ease);
+  cursor: zoom-out;
+}
+.lightbox.open { opacity: 1; visibility: visible; }
+.lightbox img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  transform: scale(.96);
+  transition: transform .2s var(--ease);
+}
+.lightbox.open img { transform: scale(1); }
+@media (prefers-reduced-motion: reduce) {
+  .lightbox, .lightbox img { transition: none; }
 }

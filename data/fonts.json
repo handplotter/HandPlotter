@@ -1,0 +1,202 @@
+[
+  {
+    "file": "assets/font-samples/ALDRICH.svg",
+    "name": "Aldrich",
+    "category": "commercial"
+  },
+  {
+    "file": "assets/font-samples/ELECTROLIZE.svg",
+    "name": "Electrolize",
+    "category": "commercial"
+  },
+  {
+    "file": "assets/font-samples/GENOS.svg",
+    "name": "Genos",
+    "category": "commercial"
+  },
+  {
+    "file": "assets/font-samples/OSIFONT.svg",
+    "name": "Osifont",
+    "category": "commercial"
+  },
+  {
+    "file": "assets/font-samples/SHARETECHMONO.svg",
+    "name": "Share Tech Mono",
+    "category": "commercial"
+  },
+  {
+    "file": "assets/font-samples/EMSAllure.svg",
+    "name": "EMS Allure",
+    "category": "ems"
+  },
+  {
+    "file": "assets/font-samples/EMSElfin.svg",
+    "name": "EMS Elfin",
+    "category": "ems"
+  },
+  {
+    "file": "assets/font-samples/EMSFelix.svg",
+    "name": "EMS Felix",
+    "category": "ems"
+  },
+  {
+    "file": "assets/font-samples/EMSNixish.svg",
+    "name": "EMS Nixish",
+    "category": "ems"
+  },
+  {
+    "file": "assets/font-samples/EMSNixishItalic.svg",
+    "name": "EMS Nixish Italic",
+    "category": "ems"
+  },
+  {
+    "file": "assets/font-samples/EMSOsmotron.svg",
+    "name": "EMS Osmotron",
+    "category": "ems"
+  },
+  {
+    "file": "assets/font-samples/EMSReadability.svg",
+    "name": "EMS Readability",
+    "category": "ems"
+  },
+  {
+    "file": "assets/font-samples/EMSReadabilityItalic.svg",
+    "name": "EMS Readability Italic",
+    "category": "ems"
+  },
+  {
+    "file": "assets/font-samples/EMSTech.svg",
+    "name": "EMS Tech",
+    "category": "ems"
+  },
+  {
+    "file": "assets/font-samples/HersheyCursive.svg",
+    "name": "Hershey Cursive",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyFutural.svg",
+    "name": "Hershey Futural",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyFuturam.svg",
+    "name": "Hershey Futuram",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyGothEnglish.svg",
+    "name": "Hershey Gothic English",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyGothGBT.svg",
+    "name": "Hershey Goth GBT",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyGothGRT.svg",
+    "name": "Hershey Goth GRT",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyGothITT.svg",
+    "name": "Hershey Goth ITT",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyGothicGer.svg",
+    "name": "Hershey Gothic German",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyGothicIta.svg",
+    "name": "Hershey Gothic Italian",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyRomanD.svg",
+    "name": "Hershey Roman D",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyRowmanS.svg",
+    "name": "Hershey Rowman S",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyRowmanT.svg",
+    "name": "Hershey Rowman T",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheySans1.svg",
+    "name": "Hershey Sans (1-stroke)",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheySansMed.svg",
+    "name": "Hershey Sans Medium",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyScript1.svg",
+    "name": "Hershey Script (1-stroke)",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyScriptC.svg",
+    "name": "Hershey Script C",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyScriptMed.svg",
+    "name": "Hershey Script Medium",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyScriptS.svg",
+    "name": "Hershey Script S",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheySerifBold.svg",
+    "name": "Hershey Serif Bold",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheySerifBoldItalic.svg",
+    "name": "Hershey Serif Bold Italic",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheySerifMed.svg",
+    "name": "Hershey Serif Medium",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheySerifMedItalic.svg",
+    "name": "Hershey Serif Medium Italic",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyTimesI.svg",
+    "name": "Hershey Times Italic",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyTimesIB.svg",
+    "name": "Hershey Times Italic Bold",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyTimesR.svg",
+    "name": "Hershey Times Roman",
+    "category": "hershey"
+  },
+  {
+    "file": "assets/font-samples/HersheyTimesRB.svg",
+    "name": "Hershey Times Roman Bold",
+    "category": "hershey"
+  }
+]
