@@ -7,7 +7,7 @@
 <meta name="description" content="Get your text, certificates, or invitations plotted in real handwritten ink. Get an instant estimate and message us on Facebook to book.">
 <meta name="theme-color" content="#2f4a72">
 <link rel="icon" href="assets/icon.png">
-<link rel="stylesheet" href="assets/style.css?v=20260826b">
+<link rel="stylesheet" href="assets/style.css?v=20260826c">
 </head>
 <body>
 
@@ -81,11 +81,18 @@
       as proof photos -- see Finance Manager's Website tab (Add a review) or
       edit data/reviews.json by hand. object-fit:contain (not proof-grid's
       cover/4:3 crop) since a screenshot's own text must stay fully readable,
-      not get cropped to fit a fixed frame.
+      not get cropped to fit a fixed frame. A <details> dropdown (collapsed by
+      default) rather than its own always-open section -- there's nothing to
+      show yet, and it stays out of the way once there is.
     -->
     <section id="reviews" class="reveal">
-      <h2>What customers say</h2>
-      <div id="review-gallery" class="review-grid"></div>
+      <details class="reviews-toggle">
+        <summary>
+          <h2>What customers say</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div id="review-gallery" class="review-grid"></div>
+      </details>
     </section>
 
     <section id="offer" class="reveal">
@@ -401,7 +408,7 @@
 </div>
 
 <script src="assets/pricing.js?v=20260820"></script>
-<script src="assets/app.js?v=20260826b"></script>
+<script src="assets/app.js?v=20260826c"></script>
 <script src="assets/ai_chat.js?v=20260824c"></script>
 </body>
 </html>

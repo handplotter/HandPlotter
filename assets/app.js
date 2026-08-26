@@ -237,7 +237,7 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     if (!reviews.length) {
       const note = document.createElement('p')
       note.className = 'sub'
-      note.textContent = 'Customer reviews are coming soon.'
+      note.textContent = 'No reviews yet -- be the first one!'
       gallery.appendChild(note)
       return
     }
