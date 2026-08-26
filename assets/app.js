@@ -114,7 +114,7 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
       q.diagramsTotal > 0 ? ['Diagrams / illustrations', peso(q.diagramsTotal)] : null,
       q.turnaround.mult !== 1 ? [q.turnaround.label, '×' + q.turnaround.mult] : null,
       q.firstOrderDiscountAmt > 0 ? ['First-order discount (−' + Math.round((q.firstOrderDiscountAmt / q.rushAdjustedTotal) * 100) + '%)', '−' + peso(q.firstOrderDiscountAmt)] : null,
-      q.pdfDiscountAmt > 0 ? ['PDF submission discount', '−' + peso(q.pdfDiscountAmt)] : null,
+      q.pdfDiscountAmt > 0 ? ['PDF/DXF submission discount', '−' + peso(q.pdfDiscountAmt)] : null,
       q.handTypingFeeAmt > 0 ? ['Hand-typing (' + q.pages + ' pg)', '+' + peso(q.handTypingFeeAmt)] : null,
       q.minimumApplied ? ['Minimum order applied', null] : null,
     ].filter(Boolean).map((row) => (
@@ -140,8 +140,8 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
       'Turnaround: ' + q.turnaround.label,
       q.diagramsTotal > 0 ? 'Diagrams/illustrations included: yes' : null,
       q.firstOrder ? 'This is my first order' : null,
-      q.fromPdf ? "I'll send a PDF (typed text)" : null,
-      q.requiresHandTyping ? 'This is a photo/scan -- needs hand-typing' : null,
+      q.fromPdf ? "I'll send a PDF/DXF (typed text or CAD file)" : null,
+      q.requiresHandTyping ? 'My text is a photo/scan -- needs hand-typing' : null,
       '',
       'Estimated total: ' + peso(q.total) + ' (example/estimate only -- please confirm)',
       'Estimated down payment (' + Math.round((q.downPayment / q.total) * 100) + '%): ' + peso(q.downPayment),
@@ -519,6 +519,18 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     initHeaderScroll()
     initRevealObserver()
     initLightbox()
+    const fallback = $('copy-fallback-text')
+    if (fallback) fallback.addEventListener('click', () => fallback.select())
+  }
+
+  // Clickjacking guard: GitHub Pages serves static files with no control over
+  // response headers, so X-Frame-Options can't be set server-side -- this is
+  // the client-side equivalent. Runs immediately (not gated on
+  // DOMContentLoaded) so a malicious iframe wrapper gets bounced as early as
+  // possible. The confidentiality-agree gate on the book button is worthless
+  // if the whole page can be framed and clickjacked into a fake overlay.
+  if (window.top !== window.self) {
+    window.top.location = window.self.location.href
   }
 
   document.addEventListener('DOMContentLoaded', init)

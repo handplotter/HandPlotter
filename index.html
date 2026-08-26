@@ -6,6 +6,8 @@
 <title>HandPlotter -- real handwriting, plotted for you</title>
 <meta name="description" content="Get your text, certificates, or invitations plotted in real handwritten ink. Get an instant estimate and message us on Facebook to book.">
 <meta name="theme-color" content="#2f4a72">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://generativelanguage.googleapis.com; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'">
 <link rel="icon" href="assets/icon.png">
 <link rel="stylesheet" href="assets/style.css?v=20260826d">
 </head>
@@ -301,7 +303,7 @@
             <input type="checkbox" id="f-frompdf">
             <span class="toggle-track"><span class="toggle-thumb"></span></span>
           </label>
-          <label for="f-frompdf" class="toggle-text">I'll send a PDF (typed text, not a photo) <span class="save-badge" id="pdf-save-badge"></span></label>
+          <label for="f-frompdf" class="toggle-text">I'll send a PDF or DXF (typed text or CAD file, not a photo) <span class="save-badge" id="pdf-save-badge"></span></label>
         </div>
 
         <div class="field toggle-row">
@@ -309,7 +311,7 @@
             <input type="checkbox" id="f-handtyping">
             <span class="toggle-track"><span class="toggle-thumb"></span></span>
           </label>
-          <label for="f-handtyping" class="toggle-text">It's only a photo/scan -- you'll need to type it up</label>
+          <label for="f-handtyping" class="toggle-text">My text is a photo/scan (not diagrams) -- you'll need to type it up</label>
         </div>
 
         <div class="estimate">
@@ -342,7 +344,7 @@
               understand that doing so puts us both at risk.
             </label>
           </div>
-          <a id="book-btn" class="btn btn-primary" data-messenger-link target="_blank" rel="noopener">
+          <a id="book-btn" class="btn btn-primary" data-messenger-link target="_blank" rel="noopener noreferrer">
             Message us on Facebook to book
           </a>
           <div class="copy-note-permanent">
@@ -351,7 +353,7 @@
           </div>
           <div id="copy-status"></div>
           <div id="copy-fallback">
-            <textarea id="copy-fallback-text" readonly onclick="this.select()"></textarea>
+            <textarea id="copy-fallback-text" readonly></textarea>
           </div>
         </div>
       </div>
@@ -365,15 +367,15 @@
     <div class="follow">
       <span class="follow-label">Follow HandPlotter for more real plotted pieces</span>
       <div class="follow-links">
-        <a class="follow-link fb" href="https://www.facebook.com/share/1PZc5eAgWm/" target="_blank" rel="noopener">
+        <a class="follow-link fb" href="https://www.facebook.com/share/1PZc5eAgWm/" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M13.5 21v-7.2h2.4l.36-2.8h-2.76v-1.8c0-.81.22-1.36 1.39-1.36h1.48V5.34c-.26-.03-1.14-.11-2.17-.11-2.15 0-3.62 1.31-3.62 3.72v2.07H8.2v2.8h2.38V21h2.92z" fill="#fff"/></svg>
           <span class="vh">HandPlotter on Facebook</span>
         </a>
-        <a class="follow-link yt" href="https://youtube.com/@handplotter?si=KATd5SyDTtDLsv2u" target="_blank" rel="noopener">
+        <a class="follow-link yt" href="https://youtube.com/@handplotter?si=KATd5SyDTtDLsv2u" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4.5" width="22" height="15" rx="5" fill="currentColor"/><polygon points="10,8.5 10,15.5 16,12" fill="#fff"/></svg>
           <span class="vh">HandPlotter on YouTube</span>
         </a>
-        <a class="follow-link tt" href="https://www.tiktok.com/@handplotter" target="_blank" rel="noopener">
+        <a class="follow-link tt" href="https://www.tiktok.com/@handplotter" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M15.5 6.2c.35 1.6 1.35 2.75 2.9 3v2.15c-1.05-.05-2-.4-2.9-.95v4.9a4.4 4.4 0 1 1-4.4-4.4c.2 0 .4.02.6.05v2.2a2.2 2.2 0 1 0 1.7 2.15V6.2h2.1z" fill="#fff"/></svg>
           <span class="vh">HandPlotter on TikTok</span>
         </a>
@@ -424,7 +426,7 @@
 </div>
 
 <script src="assets/pricing.js?v=20260820"></script>
-<script src="assets/app.js?v=20260826c"></script>
-<script src="assets/ai_chat.js?v=20260824c"></script>
+<script src="assets/app.js?v=20260826e"></script>
+<script src="assets/ai_chat.js?v=20260826a"></script>
 </body>
 </html>

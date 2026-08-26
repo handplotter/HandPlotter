@@ -313,7 +313,26 @@ const GEMINI_ATTEMPT_TIMEOUT_MS = 12000
   // or hammered by a casual script that still goes through the UI, either of
   // which would otherwise burn the whole day's free quota through one tab.
   const MAX_USER_TURNS = 20
-  let userTurns = 0
+  // Persisted across reloads (localStorage, reset daily) rather than kept in
+  // memory: an in-memory counter resets the instant the tab is refreshed, so
+  // it does nothing against a script or bored visitor that just reloads the
+  // page to keep going -- exactly the loop this guard exists to stop.
+  const QUOTA_KEY = 'hpAiChatQuota'
+  function todayKey() {
+    const d = new Date()
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0')
+  }
+  function loadUserTurns() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(QUOTA_KEY) || 'null')
+      if (saved && saved.day === todayKey() && Number.isFinite(saved.count)) return saved.count
+    } catch (e) { /* private browsing / storage disabled -- fall back to in-memory only */ }
+    return 0
+  }
+  function saveUserTurns(count) {
+    try { localStorage.setItem(QUOTA_KEY, JSON.stringify({ day: todayKey(), count })) } catch (e) {}
+  }
+  let userTurns = loadUserTurns()
 
   function addBubble(role, text) {
     const list = $('ai-chat-messages')
@@ -341,6 +360,7 @@ const GEMINI_ATTEMPT_TIMEOUT_MS = 12000
       return
     }
     userTurns++
+    saveUserTurns(userTurns)
     input.value = ''
     input.style.height = 'auto'
     addBubble('user', text)
