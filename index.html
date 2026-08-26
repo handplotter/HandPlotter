@@ -76,6 +76,18 @@
       <div id="proof-gallery" class="proof-grid"></div>
     </section>
 
+    <!--
+      Reviews: screenshots (Messenger, Facebook, etc.) published the same way
+      as proof photos -- see Finance Manager's Website tab (Add a review) or
+      edit data/reviews.json by hand. object-fit:contain (not proof-grid's
+      cover/4:3 crop) since a screenshot's own text must stay fully readable,
+      not get cropped to fit a fixed frame.
+    -->
+    <section id="reviews" class="reveal">
+      <h2>What customers say</h2>
+      <div id="review-gallery" class="review-grid"></div>
+    </section>
+
     <section id="offer" class="reveal">
       <h2>What we plot</h2>
       <div class="offer-grid">

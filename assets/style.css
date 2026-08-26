@@ -192,6 +192,25 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
 .proof-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--line); }
 .proof-item .proof-caption { padding: 8px 10px; font-size: 0.82rem; color: var(--ink-soft); }
 
+/* ---------- reviews (screenshots) ---------- */
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.review-item {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.review-item:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(20,25,35,.1); }
+/* contain, not cover -- a review screenshot's own text must stay fully
+   readable, unlike a proof photo which can crop to a 4:3 frame fine. */
+.review-item img { width: 100%; max-height: 420px; object-fit: contain; display: block; background: #fff; }
+.review-item .review-caption { padding: 8px 10px; font-size: 0.82rem; color: var(--ink-soft); }
+
 /* ---------- beta notice (own-handwriting) ---------- */
 .beta-note {
   display: flex;
@@ -833,7 +852,7 @@ footer.site {
    (backdrop or the photo itself) to close -- see app.js initLightbox().
    Above the AI chat panel (z-index 31) since a zoomed photo should cover
    everything else on the page while it's open. */
-.proof-item img, .sample-pair img, .font-card img { cursor: zoom-in; }
+.proof-item img, .sample-pair img, .font-card img, .review-item img { cursor: zoom-in; }
 .lightbox {
   position: fixed;
   inset: 0;

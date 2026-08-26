@@ -216,6 +216,50 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     })
   }
 
+  // loadReviewPhotos(): fetches data/reviews.json (Finance Manager's
+  // "Website" tab writes it -- same publish mechanism + record shape as
+  // loadProofPhotos, its own manifest/dir since reviews are a distinct kind
+  // of content). Empty/missing/malformed all render the same honest "coming
+  // soon" state.
+  async function loadReviewPhotos() {
+    const gallery = $('review-gallery')
+    if (!gallery) return
+    let reviews = []
+    try {
+      const res = await fetch('data/reviews.json', { cache: 'no-store' })
+      if (res.ok) {
+        const parsed = await res.json()
+        if (Array.isArray(parsed)) reviews = parsed
+      }
+    } catch (e) { /* offline / no file yet -- falls through to the empty state */ }
+
+    gallery.innerHTML = ''
+    if (!reviews.length) {
+      const note = document.createElement('p')
+      note.className = 'sub'
+      note.textContent = 'Customer reviews are coming soon.'
+      gallery.appendChild(note)
+      return
+    }
+    reviews.forEach((r) => {
+      if (!r || !r.file) return
+      const item = document.createElement('div')
+      item.className = 'review-item'
+      const img = document.createElement('img')
+      img.src = String(r.file)
+      img.alt = String(r.caption || 'Customer review')
+      img.loading = 'lazy'
+      item.appendChild(img)
+      if (r.caption) {
+        const cap = document.createElement('div')
+        cap.className = 'review-caption'
+        cap.textContent = String(r.caption)
+        item.appendChild(cap)
+      }
+      gallery.appendChild(item)
+    })
+  }
+
   // loadHandwritingSamples(): fetches data/samples.json (Finance Manager's
   // "Website" tab writes it, same publish mechanism as proof photos) and
   // renders each {before, after, note} pair. Empty/missing/malformed all
@@ -392,7 +436,7 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
       img.src = '' // stop the (possibly large) photo decoding/painting while hidden
     }
     main.addEventListener('click', (e) => {
-      const target = e.target.closest('.proof-item img, .sample-pair img, .font-card img')
+      const target = e.target.closest('.proof-item img, .sample-pair img, .font-card img, .review-item img')
       if (target) open(target.src, target.alt)
     })
     box.addEventListener('click', close)
@@ -469,6 +513,7 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     updateBookAvailability()
     renderEstimate()
     loadProofPhotos()
+    loadReviewPhotos()
     loadHandwritingSamples()
     loadFontLibrary()
     initHeaderScroll()
