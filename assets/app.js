@@ -262,8 +262,13 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
 
   // loadHandwritingSamples(): fetches data/samples.json (Finance Manager's
   // "Website" tab writes it, same publish mechanism as proof photos) and
-  // renders each {before, after, note} pair. Empty/missing/malformed all
-  // render the same honest "coming soon" state, matching loadProofPhotos.
+  // renders each {before, skeleton?, after, note} entry. `skeleton` is
+  // optional -- when present, shows the real direct-capture skeletonization
+  // result too (visible stray marks and all) alongside the clean referenced
+  // font actually shipped, so the tradeoff described in "How the font is
+  // made" is SEEN, not just read. Without it, falls back to the plain
+  // before/after pair. Empty/missing/malformed all render the same honest
+  // "coming soon" state, matching loadProofPhotos.
   async function loadHandwritingSamples() {
     const gallery = $('sample-gallery')
     if (!gallery) return
@@ -286,31 +291,28 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     }
     samples.forEach((s) => {
       if (!s || !s.before || !s.after) return
+      const hasSkeleton = !!s.skeleton
       const pair = document.createElement('div')
-      pair.className = 'sample-pair'
+      pair.className = hasSkeleton ? 'sample-pair triple' : 'sample-pair'
 
-      const beforeFig = document.createElement('figure')
-      const beforeImg = document.createElement('img')
-      beforeImg.src = String(s.before)
-      beforeImg.alt = 'Original handwriting sample'
-      beforeImg.loading = 'lazy'
-      const beforeCap = document.createElement('figcaption')
-      beforeCap.textContent = 'Your handwriting'
-      beforeFig.appendChild(beforeImg)
-      beforeFig.appendChild(beforeCap)
+      const makeFig = (src, alt, caption) => {
+        const fig = document.createElement('figure')
+        const img = document.createElement('img')
+        img.src = String(src)
+        img.alt = alt
+        img.loading = 'lazy'
+        const cap = document.createElement('figcaption')
+        cap.textContent = caption
+        fig.appendChild(img)
+        fig.appendChild(cap)
+        return fig
+      }
 
-      const afterFig = document.createElement('figure')
-      const afterImg = document.createElement('img')
-      afterImg.src = String(s.after)
-      afterImg.alt = 'Result as a custom font'
-      afterImg.loading = 'lazy'
-      const afterCap = document.createElement('figcaption')
-      afterCap.textContent = 'As your font'
-      afterFig.appendChild(afterImg)
-      afterFig.appendChild(afterCap)
-
-      pair.appendChild(beforeFig)
-      pair.appendChild(afterFig)
+      pair.appendChild(makeFig(s.before, 'Original handwriting sample', 'Your handwriting'))
+      if (hasSkeleton) {
+        pair.appendChild(makeFig(s.skeleton, 'Direct pixel-trace skeletonization', 'Real skeletonization'))
+      }
+      pair.appendChild(makeFig(s.after, 'Result as a custom font', hasSkeleton ? 'As your font (referenced)' : 'As your font'))
 
       if (s.note) {
         const note = document.createElement('div')

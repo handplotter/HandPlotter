@@ -9,7 +9,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://generativelanguage.googleapis.com; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'">
 <link rel="icon" href="assets/icon.png">
-<link rel="stylesheet" href="assets/style.css?v=20260826e">
+<link rel="stylesheet" href="assets/style.css?v=20260827b">
 </head>
 <body>
 
@@ -28,10 +28,13 @@
         <path class="squiggle-path" d="M8,72 L78,72 C104,72 104,40 130,40 C156,40 156,72 182,72 C208,72 210,40 232,22 L258,6" stroke="#2f4a72" stroke-width="9" stroke-linecap="round"/>
         <circle class="squiggle-dot" cx="262" cy="4" r="6.5" fill="#2f4a72"/>
       </svg>
-      <h1>Real pen-on-paper handwriting -- plotted, not printed.</h1>
+      <h1 class="word-reveal">
+        <span>Real</span> <span>handwriting</span> <span>&mdash;</span>
+        <span>plotted,</span> <span>not</span> <span>printed.</span>
+      </h1>
       <p class="lead">
-        A pen plotter writes your text by hand, stroke by stroke, in a genuine
-        handwriting font -- not a printer font pretending to be one.
+        A real pen writes your words by hand, stroke by stroke &mdash; not a
+        font pretending to be one.
       </p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#quote">Get an instant estimate</a>
@@ -39,7 +42,7 @@
       </div>
     </section>
 
-    <section class="steps reveal">
+    <section class="steps reveal stagger">
       <div class="step">
         <div class="step-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none"><path d="M4 17.5 15 6.5a2 2 0 0 1 3 3L7 20.5 3 21z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -65,9 +68,9 @@
       </div>
     </section>
 
-    <section id="offer" class="reveal">
+    <section id="offer">
       <h2>What we plot</h2>
-      <div class="offer-grid">
+      <div class="offer-grid reveal stagger">
         <div class="offer-card">
           <div class="offer-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none"><path d="M4 17.5 15 6.5a2 2 0 0 1 3 3L7 20.5 3 21z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -177,19 +180,25 @@
     <section id="own-handwriting" class="reveal">
       <h2>Want it in your own handwriting?</h2>
       <p class="lead">
-        Send a photo of your handwriting and we build a custom font from it --
-        everything we plot for you then comes out looking like your own hand.
+        Send a photo of your handwriting and we build a custom plotting font
+        sized and shaped to match it.
       </p>
+
+      <div class="card">
+        <h3>How the font is made</h3>
+        <p class="sub" style="margin:0 0 12px">
+          Same word, three ways -- your actual handwriting, a direct
+          pixel-trace of it, and the clean font we actually plot:
+        </p>
+        <div id="sample-gallery" class="sample-list"></div>
+      </div>
 
       <div class="beta-note">
         <span class="beta-badge">Beta</span>
         <div>
-          <strong>This feature is still under development.</strong> Because
-          it's in beta, we're currently building custom fonts for free while
-          we refine it -- but we don't yet recommend it for anything
-          important or time-sensitive. Results can vary while we're still
-          tuning the process. If your order needs to look a certain way with
-          confidence, pick a font from our library above instead.
+          <strong>Still in beta.</strong> We're building custom fonts free
+          while we refine it, so results can vary -- for anything
+          time-sensitive, pick a font from our library above instead.
         </div>
       </div>
 
@@ -205,21 +214,10 @@
         </ul>
       </div>
 
-      <div class="card">
-        <details class="section-toggle">
-          <summary>
-            <h3>See it for yourself</h3>
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </summary>
-          <div id="sample-gallery" class="sample-list"></div>
-        </details>
-      </div>
-
       <p class="disclaimer">
-        Your custom font is a careful re-creation of your handwriting, not a
-        perfect trace -- small natural variation is added on purpose so pages
-        don't look robotically repeated. Expect it to be close to your hand,
-        not a 100% match.
+        Expect your custom font to be close to your hand's proportions and
+        feel, not a 100% match to every individual letter shape -- see "How
+        the font is made" above.
       </p>
     </section>
 
@@ -384,9 +382,8 @@
       </div>
     </div>
     <p class="footer-text">
-      HandPlotter -- handwritten output from a real pen plotter. Prices shown
-      are estimates; every order is confirmed with the operator before work
-      begins.
+      Run by one person, plotting your words by hand. Prices shown are
+      estimates -- every order is confirmed with me before work begins.
     </p>
   </div>
 </footer>
@@ -428,7 +425,7 @@
 </div>
 
 <script src="assets/pricing.js?v=20260820"></script>
-<script src="assets/app.js?v=20260826e"></script>
+<script src="assets/app.js?v=20260827a"></script>
 <script src="assets/ai_chat.js?v=20260826a"></script>
 </body>
 </html>

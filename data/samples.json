@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "before": "assets/samples/hand-photo.png",
+    "skeleton": "assets/samples/hand-skeleton.png",
+    "after": "assets/samples/hand-clean.png",
+    "note": "Same word, three ways: your actual photographed handwriting, a direct pixel-trace skeletonization of it (real, but leaves small stray marks once plotted), and the clean referenced font we actually ship."
+  }
+]

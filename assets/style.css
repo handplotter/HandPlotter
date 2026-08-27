@@ -57,8 +57,46 @@ img { max-width: 100%; display: block; }
   transition: opacity .6s var(--ease), transform .6s var(--ease);
 }
 .reveal.in-view { opacity: 1; transform: none; }
+
+/* Staggered variant: the .reveal element itself stays put (no block-level
+   fade) and each of its direct children fades up in sequence instead --
+   used for the step strip, the offer cards, so the page reads as being
+   written in one thing at a time rather than dropped in as one flat block. */
+.reveal.stagger { opacity: 1; transform: none; transition: none; }
+.reveal.stagger > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+}
+.reveal.stagger.in-view > * { opacity: 1; transform: none; }
+.reveal.stagger.in-view > *:nth-child(1) { transition-delay: .04s; }
+.reveal.stagger.in-view > *:nth-child(2) { transition-delay: .1s; }
+.reveal.stagger.in-view > *:nth-child(3) { transition-delay: .16s; }
+.reveal.stagger.in-view > *:nth-child(4) { transition-delay: .22s; }
+.reveal.stagger.in-view > *:nth-child(5) { transition-delay: .28s; }
+
+/* Hero headline: each word writes itself in on load, echoing the pen-
+   squiggle just above it -- the page's one signature "handwritten" moment,
+   not a template default (see impeccable.style/slop's "motion without
+   meaning" rule -- this one has a reason: the whole site's pitch is that
+   words get written, not printed). */
+.word-reveal span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: word-in .5s var(--ease) forwards;
+}
+.word-reveal span:nth-child(1) { animation-delay: .05s; }
+.word-reveal span:nth-child(2) { animation-delay: .13s; }
+.word-reveal span:nth-child(3) { animation-delay: .21s; }
+.word-reveal span:nth-child(4) { animation-delay: .29s; }
+.word-reveal span:nth-child(5) { animation-delay: .37s; }
+.word-reveal span:nth-child(6) { animation-delay: .45s; }
+@keyframes word-in { to { opacity: 1; transform: none; } }
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal, .reveal.stagger > * { opacity: 1; transform: none; transition: none; }
+  .word-reveal span { opacity: 1; transform: none; animation: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -214,10 +252,13 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
 /* Collapsible section wrapper: reviews, proof gallery, the own-handwriting
    sample showcase, and the font library all use this same <details> pattern
    -- one dropdown look site-wide instead of four one-off implementations. */
-/* Given its own bar (border + accent edge, not just bare heading text) so a
-   dropdown title doesn't read as an inert page heading and get skipped past
-   -- flat colour + hairline border rather than a soft-shadow card, so it
-   still reads as a distinct control rather than one more content block. */
+/* Given its own bar (tinted fill, not just bare heading text) so a dropdown
+   title doesn't read as an inert page heading and get skipped past -- flat
+   colour + hairline border rather than a soft-shadow card, so it still reads
+   as a distinct control rather than one more content block. A same-color
+   fill carries that job without the one-sided accent border AI generators
+   default to (a thick colored stripe on a single edge of a rounded card) --
+   see impeccable.style/slop's "side-tab accent border" rule. */
 .section-toggle summary {
   cursor: pointer;
   list-style: none;
@@ -227,8 +268,8 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
   gap: 10px;
   padding: 14px 16px;
   border: 1px solid var(--line);
-  border-left: 4px solid var(--accent);
   border-radius: 6px;
+  background: var(--navy-soft);
   transition: border-color .15s var(--ease), background .15s var(--ease);
 }
 .section-toggle summary:hover { border-color: var(--accent); }
@@ -327,8 +368,18 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
   border-radius: var(--radius);
   padding: 14px;
 }
+.sample-pair.triple { grid-template-columns: 1fr 1fr 1fr; }
 @media (max-width: 480px) { .sample-pair { grid-template-columns: 1fr; } }
 .sample-pair figure { margin: 0; }
+.sample-pair.triple figure {
+  opacity: 0;
+  animation: fig-in .5s var(--ease) forwards;
+}
+.sample-pair.triple figure:nth-child(1) { animation-delay: .05s; }
+.sample-pair.triple figure:nth-child(2) { animation-delay: .28s; }
+.sample-pair.triple figure:nth-child(3) { animation-delay: .51s; }
+@keyframes fig-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .sample-pair.triple figure { opacity: 1; animation: none; } }
 .sample-pair img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; display: block; background: var(--line); }
 .sample-pair figcaption { font-size: 0.78rem; color: var(--ink-soft); text-align: center; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
 .sample-pair .sample-note { grid-column: 1 / -1; font-size: 0.88rem; color: var(--ink-soft); margin-top: 2px; }
