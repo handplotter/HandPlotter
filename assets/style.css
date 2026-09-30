@@ -456,23 +456,6 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
   resize: none;
   box-sizing: border-box;
 }
-.latex-warn {
-  background: var(--warn-bg);
-  color: var(--warn-ink);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 0.82rem;
-  line-height: 1.45;
-  margin: 10px 0 0;
-}
-.latex-warn strong { display: inline; margin-bottom: 0; color: inherit; }
-.latex-warn code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  background: rgba(0, 0, 0, 0.08);
-  padding: 1px 5px;
-  border-radius: 4px;
-  font-size: 0.85em;
-}
 .latex-step-img {
   margin-top: 10px;
   border: 1.5px dashed var(--line);
