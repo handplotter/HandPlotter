@@ -414,9 +414,59 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
   color: var(--ink);
   margin: 8px 0 0;
 }
+/* Multi-line prose (the Gemini prompt) reads better wrapped than
+   horizontally scrolled, unlike a single-line LaTeX snippet. */
+.latex-code.wrap { white-space: pre-wrap; word-break: break-word; overflow-x: visible; }
 .latex-step-body code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   background: var(--navy-soft);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.copy-prompt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--navy);
+  background: transparent;
+  color: var(--navy);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+.copy-prompt-btn:hover { background: var(--navy-soft); }
+.copy-prompt-btn:active { transform: scale(.97); }
+.copy-prompt-status { display: block; margin-top: 6px; font-size: 0.8rem; color: var(--warn-ink); min-height: 1.1em; }
+.copy-fallback-box { display: none; margin-top: 8px; }
+.copy-fallback-box textarea {
+  width: 100%;
+  min-height: 90px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+}
+.latex-warn {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin: 10px 0 0;
+}
+.latex-warn strong { display: inline; margin-bottom: 0; color: inherit; }
+.latex-warn code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: rgba(0, 0, 0, 0.08);
   padding: 1px 5px;
   border-radius: 4px;
   font-size: 0.85em;

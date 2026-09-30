@@ -268,15 +268,38 @@
           <li>
             <div class="latex-step-num">2</div>
             <div class="latex-step-body">
-              <strong>Upload them to Gemini or ChatGPT and ask it to convert each problem into LaTeX.</strong>
+              <strong>Upload them to Gemini or ChatGPT along with this exact prompt:</strong>
+              <pre class="latex-code wrap" id="gemini-prompt-text">Convert every math problem in these photos into LaTeX. Rules:
+- One formula per line -- press Enter between problems, don't run them together.
+- Wrap EACH formula in single backticks, like `\frac{a}{b}` -- do NOT use dollar signs ($ or $$) or \( \) around it.
+- Keep the LaTeX exact and complete. Don't simplify, solve, explain, or add any commentary -- just convert the handwriting to LaTeX.
+- Output plain text only, nothing bolded or numbered.</pre>
+              <button type="button" class="copy-prompt-btn" id="copy-gemini-prompt-btn">Copy this prompt</button>
+              <span class="copy-prompt-status" id="copy-gemini-prompt-status"></span>
+              <div class="copy-fallback-box" id="copy-gemini-prompt-fallback">
+                <textarea readonly></textarea>
+              </div>
               <div class="latex-step-img" id="latex-step-2-img">Photo coming soon</div>
             </div>
           </li>
           <li>
             <div class="latex-step-num">3</div>
             <div class="latex-step-body">
-              <strong>Paste the LaTeX into a Google Doc -- one formula per paragraph</strong> (press Enter between problems, don't let them run together). Use <code>$$...$$</code> around each formula, e.g.:
-              <pre class="latex-code">$$\frac{dy}{dx} = \frac{xy + 2y - x - 2}{xy - 3y + x - 3}$$</pre>
+              <strong>Paste it into a Google Doc -- one formula per paragraph</strong> (press Enter between problems, don't let them run together). Keep the backticks around each one, e.g.:
+              <pre class="latex-code">`\frac{dy}{dx} = \frac{xy + 2y - x - 2}{xy - 3y + x - 3}`</pre>
+              <p class="latex-warn">
+                <strong>Do this first, or Google Docs may still mangle it:</strong>
+                In the Doc, go to <strong>Tools &rarr; Preferences</strong> and
+                uncheck <strong>"Automatically detect Markdown."</strong> Google
+                Docs treats <code>_</code> and <code>*</code> as formatting
+                shortcuts by default, so without this off it can turn parts of
+                your formula into italics/bold. (We use backticks instead of
+                <code>$$...$$</code> here on purpose -- Google Docs silently
+                converts anything in dollar signs into its own rendered
+                equation, which deletes the real LaTeX text underneath it.
+                Backticks don't trigger that, so what you paste is what stays
+                in the PDF.)
+              </p>
               <div class="latex-step-img" id="latex-step-3-img">Photo coming soon</div>
             </div>
           </li>

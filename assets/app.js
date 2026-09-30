@@ -223,6 +223,32 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     }
   }
 
+  // wireCopyGeminiPrompt(): the math-discount section's step 2 shows a fixed
+  // prompt telling Gemini/ChatGPT to wrap each formula in backticks instead
+  // of $$...$$ (Google Docs silently destroys $-delimited LaTeX on paste --
+  // see the step 3 warning). The button copies the <pre>'s own textContent,
+  // so the prompt only lives in ONE place (the HTML) instead of being
+  // duplicated into a JS string that could drift out of sync with it.
+  function wireCopyGeminiPrompt() {
+    const btn = $('copy-gemini-prompt-btn')
+    const pre = $('gemini-prompt-text')
+    const status = $('copy-gemini-prompt-status')
+    const fallback = $('copy-gemini-prompt-fallback')
+    if (!btn || !pre || !status || !fallback) return
+    btn.addEventListener('click', async () => {
+      const text = pre.textContent.trim()
+      try {
+        await navigator.clipboard.writeText(text)
+        status.textContent = 'Copied -- paste it into Gemini or ChatGPT along with your photos.'
+      } catch (e) {
+        const ta = fallback.querySelector('textarea')
+        if (ta) ta.value = text
+        fallback.style.display = 'block'
+        status.textContent = 'Could not auto-copy -- select the text below and copy it manually.'
+      }
+    })
+  }
+
   // loadProofPhotos(): fetches data/proof.json (Finance Manager's "Website"
   // tab writes it -- see finance_manager/src/main.js) and renders whatever is
   // there. Built with DOM APIs (not innerHTML string-building, unlike the
@@ -541,6 +567,7 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     applyExamSeasonMode()
     applyMathDiscountPct()
     loadLatexStepImages()
+    wireCopyGeminiPrompt()
 
     const CAT = window.HandPlotterPricing.catalogFor(DISK)
     fillPillGroup($('f-size'), CAT.sizes, 'a4')
