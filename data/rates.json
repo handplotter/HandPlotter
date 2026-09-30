@@ -40,6 +40,7 @@
   "handTypingFeePerPage": 30,
   "ownHandwritingFee": 70,
   "mathLatexDiscountPct": 0.03,
+  "examSeasonPdfOnly": false,
   "__catalog": {
     "sizes": [
       {
@@ -127,5 +128,5 @@
       }
     ]
   },
-  "generatedAt": "2026-09-29T04:32:08.783Z"
+  "generatedAt": "2026-09-30T04:16:48.402Z"
 }
