@@ -55,7 +55,7 @@ window.HandPlotterPricing = (function () {
     sizeMult: { a6: 0.45, a5: 0.60, a4: 1.00, long: 1.15, a3: 2.00 },
     densityMult: { light: 0.60, standard: 1.00, full: 1.50, max: 2.00 },
     diagramFee: { simple: 20, moderate: 40, complex: 80 },
-    volumePct: { v20: 0.065, v10: 0.045, v5: 0.025 },
+    volumePct: { v20: 0.06, v10: 0.04, v5: 0.02 },
     turnaroundMult: { regular: 1.0, 'semi-rush': 1.5, rush: 2.0, 'super-rush': 2.5 },
     turnaroundCap: { regular: null, 'semi-rush': 10, rush: 5, 'super-rush': 3 },
     minOrder: 100,
