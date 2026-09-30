@@ -161,6 +161,15 @@
           Every one of these is ready to plot today -- no beta, no waiting.
           A real sample of each, straight off the plotter's own renderer.
         </p>
+        <div class="tune-row" role="list" aria-label="A font can be tuned: elongated, widened, italicized, humanized">
+          <span class="tune-chip" role="listitem">Elongate</span>
+          <span class="tune-chip" role="listitem">Widen</span>
+          <span class="tune-chip" role="listitem">Italicize</span>
+          <span class="tune-chip" role="listitem">Humanize</span>
+        </div>
+        <p class="sub" style="margin:2px 0 14px">
+          Pick a font and we'll still tune it to fit your piece -- just tell us when you message us.
+        </p>
         <div class="pill-group" id="font-filter" role="radiogroup" aria-label="Font category">
           <button type="button" class="pill active" data-cat="all">All</button>
           <button type="button" class="pill" data-cat="commercial">Commercial-style</button>
@@ -306,13 +315,14 @@
           <label for="f-frompdf" class="toggle-text">I'll send a PDF or DXF (typed text or CAD file, not a photo) <span class="save-badge" id="pdf-save-badge"></span></label>
         </div>
 
-        <div class="field toggle-row">
+        <div class="field toggle-row" id="f-handtyping-row">
           <label class="toggle-switch">
             <input type="checkbox" id="f-handtyping">
             <span class="toggle-track"><span class="toggle-thumb"></span></span>
           </label>
           <label for="f-handtyping" class="toggle-text">My text is a photo/scan (not diagrams) -- you'll need to type it up</label>
         </div>
+        <p class="sub" id="exam-season-note" style="display:none">It's exam season -- we're only able to take ready-made PDF or DXF files right now (no photos/scans to type up), so we can turn work around fast. Thanks for understanding!</p>
 
         <div class="estimate">
           <div id="q-breakdown"></div>

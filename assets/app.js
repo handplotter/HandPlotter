@@ -82,6 +82,28 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     }
   }
 
+  // PART146: exam-season submission policy -- a manual on/off the operator
+  // flips in the app's Rate settings (examSeasonPdfOnly), published here the
+  // same way as every rate number. Reads DISK directly (not through
+  // HandPlotterPricing.compute()/mergeOver, which only knows numeric pricing
+  // fields) since this is a form-availability flag, not a price input. When
+  // on, the "photo/scan, needs hand-typing" toggle is hidden and force-
+  // unchecked (a visitor can't leave it checked from before the flag flipped
+  // on and silently submit a request the operator won't take this week) and
+  // an explanatory note takes its place instead of the option just vanishing
+  // with no reason given.
+  function applyExamSeasonMode() {
+    const on = !!(DISK && DISK.examSeasonPdfOnly)
+    const row = $('f-handtyping-row')
+    const note = $('exam-season-note')
+    if (row) row.style.display = on ? 'none' : ''
+    if (note) note.style.display = on ? 'block' : 'none'
+    if (on && $('f-handtyping') && $('f-handtyping').checked) {
+      $('f-handtyping').checked = false
+      renderEstimate()
+    }
+  }
+
   function renderFreshnessBanner() {
     const el = $('rates-banner')
     if (!el) return
@@ -485,6 +507,7 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     DISK = loaded.disk
     META = loaded.meta
     renderFreshnessBanner()
+    applyExamSeasonMode()
 
     const CAT = window.HandPlotterPricing.catalogFor(DISK)
     fillPillGroup($('f-size'), CAT.sizes, 'a4')

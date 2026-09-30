@@ -94,9 +94,39 @@ img { max-width: 100%; display: block; }
 .word-reveal span:nth-child(6) { animation-delay: .45s; }
 @keyframes word-in { to { opacity: 1; transform: none; } }
 
+/* Font-library "tune it" chips: an `animation` (not a `.reveal` scroll-
+   transition) so it plays every time this section's collapsed <details> is
+   opened, not just once while it's still hidden off-screen -- a
+   `.reveal`/`.in-view` transition would have already fired (and landed on
+   its end state) before the visitor ever expands the dropdown, since
+   IntersectionObserver sees the closed <details> enter the viewport long
+   before its content is shown. display:none -> block restarts a keyframe
+   animation, which is exactly the visibility this needed. */
+.tune-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 2px 0 6px; }
+.tune-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(8px) scale(.94);
+  animation: tune-chip-in .45s var(--ease) forwards;
+}
+.tune-chip:nth-child(1) { animation-delay: .05s; }
+.tune-chip:nth-child(2) { animation-delay: .15s; }
+.tune-chip:nth-child(3) { animation-delay: .25s; }
+.tune-chip:nth-child(4) { animation-delay: .35s; }
+@keyframes tune-chip-in { to { opacity: 1; transform: none; } }
+
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal.stagger > * { opacity: 1; transform: none; transition: none; }
   .word-reveal span { opacity: 1; transform: none; animation: none; }
+  .tune-chip { opacity: 1; transform: none; animation: none; }
   html { scroll-behavior: auto; }
 }
 
