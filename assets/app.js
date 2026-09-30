@@ -117,6 +117,16 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     document.querySelectorAll('.latex-discount-pct').forEach((el) => { el.textContent = String(pct) })
   }
   const LATEX_STEP_EXTS = ['png', 'jpg', 'jpeg', 'webp']
+  // 2026-09-30: each Step-N photo publish overwrites the SAME filename (the
+  // app's "Step N photo" button always writes assets/latex-step-<N>.<ext>),
+  // so a browser/CDN that already cached the old bytes under that exact URL
+  // has no reason to ever re-fetch it -- a re-uploaded photo can silently
+  // fail to show for returning visitors. Confirmed live: the operator swapped
+  // step 2's photo and it still rendered the old one. Busting with a fresh
+  // per-pageload timestamp guarantees this always refetches instead of
+  // relying on someone remembering to bump a version manually (index.html's
+  // ?v= on style.css/app.js just showed how easily that gets forgotten).
+  const CACHE_BUST = Date.now()
   function loadLatexStepImage(step, extIndex) {
     extIndex = extIndex || 0
     const holder = $('latex-step-' + step + '-img')
@@ -129,7 +139,7 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
       holder.appendChild(img)
     }
     img.onerror = () => loadLatexStepImage(step, extIndex + 1)
-    img.src = 'assets/latex-step-' + step + '.' + LATEX_STEP_EXTS[extIndex]
+    img.src = 'assets/latex-step-' + step + '.' + LATEX_STEP_EXTS[extIndex] + '?cb=' + CACHE_BUST
   }
   function loadLatexStepImages() {
     for (let step = 1; step <= 4; step++) loadLatexStepImage(step, 0)
@@ -242,9 +252,13 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
         status.textContent = 'Copied -- paste it into Gemini or ChatGPT along with your photos.'
       } catch (e) {
         const ta = fallback.querySelector('textarea')
-        if (ta) ta.value = text
+        if (ta) {
+          ta.value = text
+          ta.focus()
+          ta.select()
+        }
         fallback.style.display = 'block'
-        status.textContent = 'Could not auto-copy -- select the text below and copy it manually.'
+        status.textContent = 'Could not auto-copy -- it\'s already selected below, just copy it manually.'
       }
     })
   }
