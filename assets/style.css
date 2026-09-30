@@ -388,6 +388,51 @@ p.sub { color: var(--ink-soft); font-size: 0.92rem; }
 .tip-ico { font-size: 1.1rem; line-height: 1.3; flex: none; }
 .tips-list strong { color: var(--ink); }
 
+/* ---------- math-homework LaTeX discount steps ---------- */
+.latex-steps { list-style: none; margin: 16px 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+.latex-steps li { display: flex; gap: 12px; align-items: flex-start; }
+.latex-step-num {
+  flex: none;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.latex-step-body { flex: 1; min-width: 0; font-size: 0.9rem; color: var(--ink-soft); line-height: 1.45; }
+.latex-step-body strong { color: var(--ink); display: block; margin-bottom: 6px; }
+.latex-code {
+  background: var(--navy-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  overflow-x: auto;
+  color: var(--ink);
+  margin: 8px 0 0;
+}
+.latex-step-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: var(--navy-soft);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.latex-step-img {
+  margin-top: 10px;
+  border: 1.5px dashed var(--line);
+  border-radius: 10px;
+  padding: 26px 12px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  background: var(--paper);
+}
+.latex-step-img img { border-radius: 8px; margin: 0 auto; }
+
 .sample-list { display: flex; flex-direction: column; gap: 18px; }
 .sample-pair {
   display: grid;

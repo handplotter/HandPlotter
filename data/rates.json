@@ -39,6 +39,7 @@
   "pdfDiscount": 20,
   "handTypingFeePerPage": 30,
   "ownHandwritingFee": 70,
+  "mathLatexDiscountPct": 0.03,
   "__catalog": {
     "sizes": [
       {

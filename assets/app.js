@@ -104,6 +104,37 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     }
   }
 
+  // PART147: math-discount section content -- percentage text pulled from
+  // the published rate card (DISK.mathLatexDiscountPct) instead of the "3"
+  // hardcoded in the HTML as an offline fallback, and each step photo tried
+  // by fixed filename with a graceful fallback to the existing "Photo coming
+  // soon" placeholder if the operator hasn't published one yet. Reads DISK
+  // directly (like applyExamSeasonMode above) since this is display content,
+  // not a self-serve pricing input -- see main.js's publish-latex-step-image.
+  function applyMathDiscountPct() {
+    const raw = DISK && DISK.mathLatexDiscountPct
+    const pct = (raw != null && isFinite(Number(raw))) ? Math.round(Number(raw) * 100) : 3
+    document.querySelectorAll('.latex-discount-pct').forEach((el) => { el.textContent = String(pct) })
+  }
+  const LATEX_STEP_EXTS = ['png', 'jpg', 'jpeg', 'webp']
+  function loadLatexStepImage(step, extIndex) {
+    extIndex = extIndex || 0
+    const holder = $('latex-step-' + step + '-img')
+    if (!holder || extIndex >= LATEX_STEP_EXTS.length) return
+    const img = new Image()
+    img.onload = () => {
+      holder.innerHTML = ''
+      img.alt = 'Step ' + step + ' screenshot'
+      img.loading = 'lazy'
+      holder.appendChild(img)
+    }
+    img.onerror = () => loadLatexStepImage(step, extIndex + 1)
+    img.src = 'assets/latex-step-' + step + '.' + LATEX_STEP_EXTS[extIndex]
+  }
+  function loadLatexStepImages() {
+    for (let step = 1; step <= 4; step++) loadLatexStepImage(step, 0)
+  }
+
   function renderFreshnessBanner() {
     const el = $('rates-banner')
     if (!el) return
@@ -508,6 +539,8 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     META = loaded.meta
     renderFreshnessBanner()
     applyExamSeasonMode()
+    applyMathDiscountPct()
+    loadLatexStepImages()
 
     const CAT = window.HandPlotterPricing.catalogFor(DISK)
     fillPillGroup($('f-size'), CAT.sizes, 'a4')

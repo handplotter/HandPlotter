@@ -230,6 +230,78 @@
       </p>
     </section>
 
+    <!--
+      Math-homework LaTeX discount: purely informational -- the quote
+      calculator below does NOT apply this automatically (no self-serve
+      checkbox for it, unlike PDF/hand-typing). The operator verifies the
+      LaTeX parses cleanly on their end (Seed Composer Lines, no Gemini call)
+      before applying it manually when pricing the order.
+      .latex-discount-pct spans are filled from data/rates.json's
+      mathLatexDiscountPct at load (app.js's applyMathDiscountPct) so this
+      copy can't drift from the app's actual rate; "5" here is only the
+      offline/no-fetch fallback. Each .latex-step-img tries to load
+      assets/latex-step-<N>.<ext> (published from the app's Rate settings ->
+      "Step N photo" buttons) and falls back to this placeholder text if none
+      exists yet -- see app.js's loadLatexStepImages.
+    -->
+    <section id="math-discount" class="reveal">
+      <details class="section-toggle">
+        <summary>
+          <h2>Math homework? Get <span class="latex-discount-pct">3</span>% off per page</h2>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <p class="lead">
+          Convert your own handwritten math to LaTeX before you send it and
+          we'll take <span class="latex-discount-pct">3</span>% off every page
+          it's on -- less work for us to get your equations into the composer
+          means a lower price for you.
+        </p>
+
+        <ol class="latex-steps">
+          <li>
+            <div class="latex-step-num">1</div>
+            <div class="latex-step-body">
+              <strong>Take clear photos of your handwritten problem set.</strong>
+              <div class="latex-step-img" id="latex-step-1-img">Photo coming soon</div>
+            </div>
+          </li>
+          <li>
+            <div class="latex-step-num">2</div>
+            <div class="latex-step-body">
+              <strong>Upload them to Gemini or ChatGPT and ask it to convert each problem into LaTeX.</strong>
+              <div class="latex-step-img" id="latex-step-2-img">Photo coming soon</div>
+            </div>
+          </li>
+          <li>
+            <div class="latex-step-num">3</div>
+            <div class="latex-step-body">
+              <strong>Paste the LaTeX into a Google Doc -- one formula per paragraph</strong> (press Enter between problems, don't let them run together). Use <code>$$...$$</code> around each formula, e.g.:
+              <pre class="latex-code">$$\frac{dy}{dx} = \frac{xy + 2y - x - 2}{xy - 3y + x - 3}$$</pre>
+              <div class="latex-step-img" id="latex-step-3-img">Photo coming soon</div>
+            </div>
+          </li>
+          <li>
+            <div class="latex-step-num">4</div>
+            <div class="latex-step-body">
+              <strong>Download/export the Doc as a PDF and send it to us.</strong>
+              <div class="latex-step-img" id="latex-step-4-img">Photo coming soon</div>
+            </div>
+          </li>
+          <li>
+            <div class="latex-step-num">5</div>
+            <div class="latex-step-body">
+              <strong>We'll check that it converts cleanly on our end</strong> -- if it does, the <span class="latex-discount-pct">3</span>%/page discount applies to your quote.
+            </div>
+          </li>
+        </ol>
+
+        <p class="disclaimer">
+          The discount applies once we've confirmed your LaTeX converts
+          without errors -- message us the PDF and we'll let you know.
+        </p>
+      </details>
+    </section>
+
     <section id="quote" class="reveal">
       <h2>Get an instant estimate</h2>
       <p class="sub" style="margin:0 0 14px">
