@@ -173,7 +173,7 @@ const MESSENGER_PAGE_USERNAME = '61591994786404'
     $('q-down').textContent = peso(q.downPayment)
     $('q-breakdown').innerHTML = [
       ['Base (' + q.size.label + ', ' + q.density.label + ') × ' + q.pages, peso(q.pagesTotal)],
-      q.volumeDiscountAmt > 0 ? ['Volume discount (−' + Math.round(q.volumePct * 100) + '%)', '−' + peso(q.volumeDiscountAmt)] : null,
+      q.volumeDiscountAmt > 0 ? ['Volume discount (−' + (Math.round(q.volumePct * 1000) / 10) + '%)', '−' + peso(q.volumeDiscountAmt)] : null,
       q.diagramsTotal > 0 ? ['Diagrams / illustrations', peso(q.diagramsTotal)] : null,
       q.turnaround.mult !== 1 ? [q.turnaround.label, '×' + q.turnaround.mult] : null,
       q.firstOrderDiscountAmt > 0 ? ['First-order discount (−' + Math.round((q.firstOrderDiscountAmt / q.rushAdjustedTotal) * 100) + '%)', '−' + peso(q.firstOrderDiscountAmt)] : null,

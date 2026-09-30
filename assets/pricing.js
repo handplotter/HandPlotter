@@ -27,10 +27,10 @@ window.HandPlotterPricing = (function () {
       { id: 'a3', label: 'A3' },
     ],
     densities: [
-      { id: 'light', label: 'Light (≤ 75 words/pg)' },
-      { id: 'standard', label: 'Standard (76–200 words/pg)' },
-      { id: 'full', label: 'Full (201–400 words/pg)' },
-      { id: 'max', label: 'Max (400+ words/pg)' },
+      { id: 'light', label: 'Light (up to 450 characters/pg)' },
+      { id: 'standard', label: 'Standard (451–1,200 characters/pg)' },
+      { id: 'full', label: 'Full (1,201–2,400 characters/pg)' },
+      { id: 'max', label: 'Max (2,400+ characters/pg)' },
     ],
     diagramTiers: [
       { id: 'simple', label: 'Simple (box / arrow / basic chart)' },
@@ -38,9 +38,10 @@ window.HandPlotterPricing = (function () {
       { id: 'complex', label: 'Complex (custom illustration)' },
     ],
     turnarounds: [
-      { id: 'regular', label: 'Regular (2 business days)' },
-      { id: 'semi-rush', label: 'Semi-rush (next business day)' },
-      { id: 'rush', label: 'Rush (same day)' },
+      { id: 'regular', label: 'Regular (2 days)' },
+      { id: 'semi-rush', label: 'Semi-rush (36 hours)' },
+      { id: 'rush', label: 'Rush (24 hours)' },
+      { id: 'super-rush', label: 'Super rush (12 hours)' },
     ],
     volumeTiers: [
       { id: 'v20', min: 20, label: '20+ pages' },
@@ -50,13 +51,13 @@ window.HandPlotterPricing = (function () {
   }
 
   const DEFAULTS = {
-    base: 60,
+    base: 40,
     sizeMult: { a6: 0.45, a5: 0.60, a4: 1.00, long: 1.15, a3: 2.00 },
     densityMult: { light: 0.60, standard: 1.00, full: 1.50, max: 2.00 },
     diagramFee: { simple: 20, moderate: 40, complex: 80 },
-    volumePct: { v20: 0.15, v10: 0.10, v5: 0.05 },
-    turnaroundMult: { regular: 1.0, 'semi-rush': 1.5, rush: 2.5 },
-    turnaroundCap: { regular: null, 'semi-rush': 10, rush: 5 },
+    volumePct: { v20: 0.065, v10: 0.045, v5: 0.025 },
+    turnaroundMult: { regular: 1.0, 'semi-rush': 1.5, rush: 2.0, 'super-rush': 2.5 },
+    turnaroundCap: { regular: null, 'semi-rush': 10, rush: 5, 'super-rush': 3 },
     minOrder: 100,
     firstOrderDiscount: 0.10,
     downPaymentPct: 0.50,
